@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# bin folder
+bin/*
+
+# binary test file
+testfile
