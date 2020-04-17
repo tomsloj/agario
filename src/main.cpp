@@ -9,9 +9,12 @@ int main()
 {
     std::cout<<FPSNumber<< "\n";
     std::cout<<"Hello\n";
-    RenderWindow window(VideoMode(453,453),"Tytul.");
+    RenderWindow window(VideoMode(800, 600),"Tytul.");
     
-    Menu menu = Menu(window);
+    //int a = 300;
+    Menu menu;
+    //menu.addWindow(window);
+    menu.run(window);
     
 
     return 0;
