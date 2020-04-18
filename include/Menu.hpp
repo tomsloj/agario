@@ -6,10 +6,11 @@
 class Menu
 {
     private:
-
+        int chosenOption;
     public:
         Menu();
-        Menu( sf::RenderWindow &window);
+        //Menu( int &window);
+        void run( sf::RenderWindow &window );
 };
 
 #endif 

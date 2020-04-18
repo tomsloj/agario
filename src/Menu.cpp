@@ -7,20 +7,102 @@ using namespace sf;
 
 Menu::Menu()
 {
+    chosenOption = 0;
     std::cout<<"MENU\n";
 }
 
-Menu::Menu(RenderWindow &window)
+/*
+Menu::Menu(int &window)
 {
+    int w = window;
+    
+}
+*/
+void Menu::run( sf::RenderWindow &window ) 
+{
+    std::cout<<"RUN\n";
+    Event event;
+    Font font;
+    Text menuText1;
+    Text menuText2;
+    Text menuText3;
+
+    if (!font.loadFromFile("assets/arial.ttf"))
+	{
+		std::cerr << "Error loading arial.ttf" << std::endl;
+	}
+
+    menuText1.setFont(font);
+    menuText1.setCharacterSize(20);
+    menuText1.setString("Menu nr 1");
+    menuText1.setPosition({280.f, 160.f});
+
+    menuText2.setFont(font);
+    menuText2.setCharacterSize(20);
+    menuText2.setString("Menu nr 2");
+    menuText2.setPosition({280.f, 210.f});
+
+    menuText3.setFont(font);
+    menuText3.setCharacterSize(20);
+    menuText3.setString("Menu nr 3");
+    menuText3.setPosition({280.f, 260.f});
+    
+
     while (window.isOpen())
     {
-        Event e;
-        while (window.pollEvent(e))
+        while (window.pollEvent(event))
         {
-            if(e.type == Event::Closed)
+            if(event.type == Event::Closed)
                 window.close();
+            //nacisnieto przycisk
+            if(event.type == Event::KeyPressed)
+            {
+                switch(event.key.code)
+                {
+                    case Keyboard::Down:
+                        chosenOption = (chosenOption + 1) % 3;
+                        break;
+                    case Keyboard::Up:
+                        chosenOption = (((chosenOption - 1) % 3) + 3) % 3;
+                        break;
+                    default:
+                        break;
+                    
+                }
+            }
         }
+        switch (chosenOption)
+        {
+        case 0:
+            menuText1.setColor(sf::Color::Red);
+            menuText2.setColor(sf::Color::White);
+            menuText3.setColor(sf::Color::White);
+            break;
+        case 1:
+            menuText1.setColor(sf::Color::White);
+            menuText2.setColor(sf::Color::Red);
+            menuText3.setColor(sf::Color::White);
+            break;
+        case 2:
+            menuText1.setColor(sf::Color::White);
+            menuText2.setColor(sf::Color::White);
+            menuText3.setColor(sf::Color::Red);
+            break;
+        default:
+            break;
+        }
+
+        window.draw(menuText1);
+        window.draw(menuText2);
+        window.draw(menuText3);
+        window.display();
         
     }
     
 }
+/*
+void Menu::addWindow( sf::RenderWindow window )
+{
+    this->window = window;
+}
+*/
