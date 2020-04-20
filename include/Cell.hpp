@@ -3,6 +3,8 @@
 
 #include "Unit.hpp"
 
+#include <SFML/Graphics.hpp>
+
 class Cell : public Unit
 {
     private:
