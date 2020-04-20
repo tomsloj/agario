@@ -5,13 +5,14 @@ class Unit
 {
     private:
         int size;
-        int X;
-        int Y;
+        double X;
+        double Y;
     public:
         Unit();
-        Unit( int X, int Y, int size = 1 );
+        Unit( double X, double Y, int size = 1 );
         void grow(const int sizeOfGrowth);
         void increaseSize( int sizeReduction = 1 );
+        int getSize();
 };
 
 #endif 
