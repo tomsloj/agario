@@ -22,8 +22,6 @@ class Unit
         void draw(sf::RenderWindow& window);
         void setColor(sf::Color color);
         void setPosition( sf::Vector2f position );
-        void setRadius( int mass );sf::Color color);
-        void setPosition( sf::Vector2f position );
         void setRadius( int mass );
 };
 

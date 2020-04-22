@@ -37,7 +37,7 @@ void Board::deleteCell(Cell *cell)
 {
     for( vector<Cell*>::iterator it = cells.begin(); it != cells.end(); ++it )
     {
-        if(*it = cell)
+        if( *it == cell )
         {
             cells.erase(it);
             break;
@@ -49,7 +49,7 @@ void Board::deleteFeedUnit(Unit *unit)
 {
     for( vector<Unit*>::iterator it = feedUnits.begin(); it != feedUnits.end(); ++it )
     {
-        if(*it = unit)
+        if(*it == unit)
         {
             feedUnits.erase(it);
             break;
@@ -75,13 +75,13 @@ Vector2f Board::getSize()
 void Board::draw( RenderWindow& window )
 {
     //rysujemy komorki
-    for( int i = 0; i < cells.size(); ++i )
+    for( size_t i = 0; i < cells.size(); ++i )
     {
         cells[i]->draw(window);
     }
 
     //rysujemy kulki jedzenia
-    for( int i = 0; i < feedUnits.size(); ++i )
+    for( size_t i = 0; i < feedUnits.size(); ++i )
     {
         feedUnits[i]->draw(window);
     }
