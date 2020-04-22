@@ -12,14 +12,14 @@ BOOST_AUTO_TEST_SUITE( testUnit )
 BOOST_AUTO_TEST_CASE( creatingUnitTest1 )
 {
     Unit u = Unit( 0.0, 0.0 );
-    BOOST_CHECK( u.getSize() == 1 );
+    BOOST_CHECK( u.getMass() == 1 );
 }
 
 BOOST_AUTO_TEST_CASE( creatingUnitTest2 )
 {
     int size = 1234;
     Unit u = Unit( 0.0, 0.0, size );
-    BOOST_CHECK( u.getSize() == size );
+    BOOST_CHECK( u.getMass() == size );
 }
 
 BOOST_AUTO_TEST_CASE( growingUnitTest1 )
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( growingUnitTest1 )
     int growthSize = 459;
     Unit u = Unit( 0.0, 0.0, size );
     u.grow(growthSize);
-    BOOST_CHECK( u.getSize() == size + growthSize );
+    BOOST_CHECK( u.getMass() == size + growthSize );
 }
 
 BOOST_AUTO_TEST_CASE( growingUnitTest2 )
@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE( growingUnitTest2 )
     int growthSize = 9421;
     Unit u = Unit( 0.0, 0.0 );
     u.grow(growthSize);
-    BOOST_CHECK( u.getSize() == 1 + growthSize );
+    BOOST_CHECK( u.getMass() == 1 + growthSize );
 }
 
 BOOST_AUTO_TEST_CASE( increaseSizeUnitTest1 )
@@ -44,8 +44,8 @@ BOOST_AUTO_TEST_CASE( increaseSizeUnitTest1 )
     int size = 1234;
     int increase = 442;
     Unit u = Unit( 0.0, 0.0, size );
-    u.increaseSize( increase );
-    BOOST_CHECK( u.getSize() == size - increase );
+    u.increaseMass( increase );
+    BOOST_CHECK( u.getMass() == size - increase );
 }
 
 

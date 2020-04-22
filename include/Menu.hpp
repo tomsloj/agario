@@ -11,6 +11,7 @@ class Menu
         Menu();
         //Menu( int &window);
         void run( sf::RenderWindow &window );
+        void chooseOption( sf::RenderWindow &window );
 };
 
 #endif 
