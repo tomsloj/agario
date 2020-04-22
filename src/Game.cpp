@@ -1,4 +1,5 @@
 #include "../include/Game.hpp"
+#include "../include/Unit.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -13,6 +14,12 @@ Game::Game()
 Game::Game(RenderWindow &window)
 {
     std::cout<<"Game Window\n";
+    window.clear();
+    window.display();
+    double x = 0.0;
+    double y = 0.0;
+    Unit u(x, y, 20);
+    u.setColor(Color::Red);
     while (window.isOpen())
     {
         Event e;
@@ -21,6 +28,8 @@ Game::Game(RenderWindow &window)
             if(e.type == Event::Closed)
                 window.close();
         }
+        sleep(sf::milliseconds(2));
+        step(window);
         window.clear();
         window.display();
     }
@@ -40,4 +49,9 @@ Vector2f Game::findEmptyPlace(double radius)
 Vector2f Game::findPlace()
 {
     
+}
+
+void Game::step( RenderWindow &window )
+{
+
 }

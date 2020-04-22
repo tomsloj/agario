@@ -10,41 +10,65 @@ Unit::Unit(  )
     std::cout<<"UNIT\n";
 }
 
-Unit::Unit( double X, double Y, int size /*= 1*/ )
+Unit::Unit( double X, double Y, int mass /*= 1*/ )
 {
     std::cout<<"UNIT\n";
     position = sf::Vector2f(X, Y);
-    this->size = size;
+    this->mass = mass;
+    radius = mass;
     sprite = new CircleShape();
 }
 
-Unit::Unit( Vector2f position, int size /*= 1*/ )
+Unit::Unit( Vector2f position, int mass /*= 1*/ )
 {
     std::cout<<"UNIT\n";
     this->position = position;
-    this->size = size;
+    this->mass = mass;
+    radius = mass;
     sprite = new CircleShape();
 }
 
-void Unit::grow(const int sizeOfGrowth)
+void Unit::grow(const int massOfGrowth)
 {
-    size += sizeOfGrowth;
+    mass += massOfGrowth;
 }
 
-void Unit::increaseSize( int sizeReduction /*= 1*/ )
+void Unit::increaseMass( int massReduction /*= 1*/ )
 {
-    size -= sizeReduction;
+    mass -= massReduction;
 }
 
-int Unit::getSize()
+int Unit::getMass()
 {
-    return size;
+    return mass;
 }
 
-void Unit::draw(sf::RenderWindow& window)
+sf::Vector2f Unit::getPosition()
 {
+    return position;
+}
+
+void Unit::draw( RenderWindow& window) 
+{
+    setRadius( mass );
     sprite->setPosition(position);
-    sprite->setRadius(size);
+    sprite->setRadius(radius);
     sprite->setFillColor(color);
     window.draw(*sprite);
+}
+
+void Unit::setColor( Color color)
+{
+    this->color = color;
+}
+
+void Unit::setPosition( Vector2f position )
+{
+    this->position = position;
+}
+
+void Unit::setRadius( int mass )
+{
+    //trzeba to zoptymalizowa 
+    radius = mass;
 }

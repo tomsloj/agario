@@ -13,10 +13,11 @@ class Game
         std::vector<Cell>feedCells;
     public:
         Game();
-        Game( sf::RenderWindow &window);
+        Game( sf::RenderWindow &window );
         void createPlayer();
         sf::Vector2f findEmptyPlace(double radius);
         sf::Vector2f findPlace();
+        void step( sf::RenderWindow &window );
 };
 
 #endif 
