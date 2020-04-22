@@ -2,9 +2,18 @@
 #define BOOST_TEST_MODULE Student_Tests
 
 #include <boost/test/unit_test.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "../include/Unit.hpp"
 #include "../src/Unit.cpp"
+
+#include "../include/Cell.hpp"
+#include "../src/Cell.cpp"
+
+#include "../include/Board.hpp"
+#include "../src/Board.cpp"
+
+using namespace sf;
 
 BOOST_AUTO_TEST_SUITE( testUnit )
 
@@ -47,6 +56,47 @@ BOOST_AUTO_TEST_CASE( increaseSizeUnitTest1 )
     u.increaseMass( increase );
     BOOST_CHECK( u.getMass() == size - increase );
 }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_SUITE( testBoard )
+
+BOOST_AUTO_TEST_CASE( addCellsSizeTest1 )
+{
+    
+    Board board( Vector2f(100.0, 200.0));
+    int number = 13;
+    BOOST_CHECK( board.getCells().size() == 0 );
+    for ( int i = 0; i < number; ++i )
+    {
+        Cell *cell = new Cell();
+        board.addCell(cell);
+    }
+    BOOST_CHECK( board.getCells().size() == number );
+    
+}
+
+BOOST_AUTO_TEST_CASE( addCellsDataTest1 )
+{
+    
+    Board board( Vector2f(150.0, 30.0));
+    
+    Cell *cell1 = new Cell();
+    board.addCell(cell1);
+
+    Cell *cell2 = new Cell();
+    board.addCell(cell2);
+
+    Cell *cell3 = new Cell();
+    board.addCell(cell3);
+
+    BOOST_CHECK( board.getCells().size() == 3 );
+    BOOST_CHECK( board.getCells()[0] == cell1 );
+    BOOST_CHECK( board.getCells()[1] == cell2 );
+    BOOST_CHECK( board.getCells()[2] == cell3 ); 
+}
+
 
 
 
