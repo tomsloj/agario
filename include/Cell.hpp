@@ -8,9 +8,11 @@
 class Cell : public Unit
 {
     private:
-
+        double speed;
+        double acceleration;
     public:
         Cell();
+        void updateSpeed();
 };
 
 #endif 

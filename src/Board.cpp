@@ -1,14 +1,9 @@
-#include "../include/Cell.hpp"
+#include "../include/Board.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-Cell::Cell()
+Board::Board()
 {
     std::cout<<"CELL\n";
-}
-
-void Cell::updateSpeed()
-{
-    
 }

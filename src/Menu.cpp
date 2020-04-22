@@ -1,5 +1,7 @@
 #include "../include/Menu.hpp"
 
+#include "../include/Game.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -18,7 +20,7 @@ Menu::Menu(int &window)
     
 }
 */
-void Menu::run( sf::RenderWindow &window ) 
+void Menu::run( RenderWindow &window ) 
 {
     std::cout<<"RUN\n";
     Event event;
@@ -34,17 +36,17 @@ void Menu::run( sf::RenderWindow &window )
 
     menuText1.setFont(font);
     menuText1.setCharacterSize(20);
-    menuText1.setString("Menu nr 1");
+    menuText1.setString("Graj");
     menuText1.setPosition({280.f, 160.f});
 
     menuText2.setFont(font);
     menuText2.setCharacterSize(20);
-    menuText2.setString("Menu nr 2");
+    menuText2.setString("Ustawienia");
     menuText2.setPosition({280.f, 210.f});
 
     menuText3.setFont(font);
     menuText3.setCharacterSize(20);
-    menuText3.setString("Menu nr 3");
+    menuText3.setString("Najlepsze wyniki");
     menuText3.setPosition({280.f, 260.f});
     
 
@@ -65,6 +67,9 @@ void Menu::run( sf::RenderWindow &window )
                     case Keyboard::Up:
                         chosenOption = (((chosenOption - 1) % 3) + 3) % 3;
                         break;
+                    case Keyboard::Enter:
+                        
+                        chooseOption( window );
                     default:
                         break;
                     
@@ -100,9 +105,23 @@ void Menu::run( sf::RenderWindow &window )
     }
     
 }
-/*
-void Menu::addWindow( sf::RenderWindow window )
+
+void Menu::chooseOption( RenderWindow &window )
 {
-    this->window = window;
+    std::cout << chosenOption << "\n";
+    switch (chosenOption)
+    {
+    //graj
+    case 0:
+    {
+        std::cout << "graj" << "\n";
+        Game game(window);
+        
+        break;
+    }
+    case 1:
+        break;
+    default:
+        break;
+    }
 }
-*/

@@ -12,6 +12,7 @@ Game::Game()
 
 Game::Game(RenderWindow &window)
 {
+    std::cout<<"Game Window\n";
     while (window.isOpen())
     {
         Event e;
@@ -20,7 +21,23 @@ Game::Game(RenderWindow &window)
             if(e.type == Event::Closed)
                 window.close();
         }
-        
+        window.clear();
+        window.display();
     }
+    
+}
+
+void Game::createPlayer()
+{
+    //players.push_back(Player());
+}
+
+Vector2f Game::findEmptyPlace(double radius)
+{
+
+}
+
+Vector2f Game::findPlace()
+{
     
 }
