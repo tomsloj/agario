@@ -17,6 +17,7 @@ Unit::Unit( double X, double Y, int mass /*= 1*/ )
     this->mass = mass;
     radius = mass;
     sprite = new CircleShape();
+    color = Color(30, 144, 255); //domyslny kolor
 }
 
 Unit::Unit( Vector2f position, int mass /*= 1*/ )
@@ -26,6 +27,7 @@ Unit::Unit( Vector2f position, int mass /*= 1*/ )
     this->mass = mass;
     radius = mass;
     sprite = new CircleShape();
+    color = Color(30, 144, 255); //domyslny kolor
 }
 
 void Unit::grow(const int massOfGrowth)
