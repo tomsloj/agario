@@ -7,7 +7,7 @@
 using namespace sf;
 
 const int MAX_NUMBER_OF_PLAYERS = 70;
-const int MAX_NUMBER_OF_FEED_UNITS = 300;
+const int MAX_NUMBER_OF_FEED_UNITS = 1500;
 
 Game::Game()
 {
@@ -16,7 +16,8 @@ Game::Game()
 
 Game::Game(RenderWindow &window)
 {
-    Vector2f size = Vector2f(100.0, 100.0);
+    Vector2u size = window.getSize();
+    //std::cout << window.getSize().x << " " << window.getSize().y << "\n";
     board = new Board(size);
     std::cout<<"Game Window\n";
     window.clear();
@@ -61,7 +62,7 @@ Vector2f Game::findPlace()
 void Game::step( RenderWindow &window )
 {
     while( board->getFeedUnits().size() < MAX_NUMBER_OF_FEED_UNITS )
-        board->addFeedUnit(new Unit(findEmptyPlace(1), 1));
+        board->addFeedUnit(new Unit(findPlace(), 1));
 
     //TODO sprawdzenie i uzupelnienei liczby graczy
     

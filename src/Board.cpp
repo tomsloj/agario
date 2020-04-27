@@ -13,7 +13,7 @@ Board::Board()
     std::cout<<"CELL\n";
 }
 
-Board::Board(Vector2f size)
+Board::Board(Vector2u size)
 {
     this->size = size;
 }
@@ -67,7 +67,7 @@ vector<Unit*>& Board::getFeedUnits()
     return feedUnits;
 }
 
-Vector2f Board::getSize()
+Vector2u Board::getSize()
 {
     return size;
 }
