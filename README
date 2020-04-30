@@ -1,0 +1,13 @@
+Wymagane biblioteki:
+SFML
+boost/test
+instalacja potrzebnych bibliotek jest mozliwa po uruchomieniu skryptu libs.sh
+
+kompilacja:
+dodany zostal plik makefile dzieki czemu projekt jest kompilowany poleceniem make
+
+testy:
+uruchomienie testow odbywa sie po wpisaniu polecenia make test
+
+uruchomienie:
+aplikacja uruchamia sie gdy po poprawnym skompilowaniu wpisze sie polecenie ./bin/runner

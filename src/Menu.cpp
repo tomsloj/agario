@@ -67,7 +67,7 @@ void Menu::run( RenderWindow &window )
                     case Keyboard::Up:
                         chosenOption = (((chosenOption - 1) % 3) + 3) % 3;
                         break;
-                    case Keyboard::Enter:
+                    case Keyboard::Return:
                         
                         chooseOption( window );
                     default:

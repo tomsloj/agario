@@ -16,6 +16,7 @@ Game::Game()
 
 Game::Game(RenderWindow &window)
 {
+    srand( time( NULL ) );
     Vector2u size = window.getSize();
     //std::cout << window.getSize().x << " " << window.getSize().y << "\n";
     board = new Board(size);
