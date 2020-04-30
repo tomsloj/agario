@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_SUITE( testBoard )
 BOOST_AUTO_TEST_CASE( addCellsSizeTest1 )
 {
     
-    Board board( Vector2f(100.0, 200.0));
+    Board board( Vector2u(100, 200));
     int number = 13;
     BOOST_CHECK( board.getCells().size() == 0 );
     for ( int i = 0; i < number; ++i )
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE( addCellsSizeTest1 )
 BOOST_AUTO_TEST_CASE( addCellsDataTest1 )
 {
     
-    Board board( Vector2f(150.0, 30.0));
+    Board board( Vector2u(150, 30));
     
     Cell *cell1 = new Cell();
     board.addCell(cell1);
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE( addCellsDataTest1 )
 BOOST_AUTO_TEST_CASE( deleteCellsDataTest1 )
 {
     
-    Board board( Vector2f(150.0, 30.0));
+    Board board( Vector2u(150, 30));
     
     Cell *cell1 = new Cell();
     board.addCell(cell1);
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE( deleteCellsDataTest1 )
 BOOST_AUTO_TEST_CASE( addFeedUnitsSizeTest1 )
 {
     
-    Board board( Vector2f(100.0, 200.0));
+    Board board( Vector2u(100, 200));
     int number = 13;
     BOOST_CHECK( board.getFeedUnits().size() == 0 );
     for ( int i = 0; i < number; ++i )
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE( addFeedUnitsSizeTest1 )
 BOOST_AUTO_TEST_CASE( addFeedUnitsDataTest1 )
 {
     
-    Board board( Vector2f(150.0, 30.0));
+    Board board( Vector2u(150, 30));
     
     Unit *unit1 = new Unit();
     board.addFeedUnit(unit1);
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_CASE( addFeedUnitsDataTest1 )
 BOOST_AUTO_TEST_CASE( deleteUnitsDataTest1 )
 {
     
-    Board board( Vector2f(150.0, 30.0));
+    Board board( Vector2u(150, 30));
     
     Unit *unit1 = new Unit();
     board.addFeedUnit(unit1);
