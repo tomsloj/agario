@@ -10,6 +10,7 @@ class Player
         std::vector<Cell>playerCells;
     public:
         Player();
+        ~Player();
 };
 
 #endif 

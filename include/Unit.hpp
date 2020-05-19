@@ -15,6 +15,7 @@ class Unit
         Unit();
         Unit( double X, double Y, int mass = 1 );
         Unit( sf::Vector2f position, int mass = 1 );
+        ~Unit();
         void grow(const int massOfGrowth);
         void increaseMass( int massReduction = 1 );
         int getMass();

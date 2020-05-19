@@ -4,5 +4,10 @@
 
 Player::Player()
 {
-    std::cout<<"PLAYER\n";
+    playerCells.push_back(Cell());
+}
+
+Player::~Player()
+{
+    playerCells.clear();
 }

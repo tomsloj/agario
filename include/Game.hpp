@@ -17,6 +17,7 @@ class Game
     public:
         Game();
         Game( sf::RenderWindow &window );
+        ~Game();
         void createPlayer();
         sf::Vector2f findEmptyPlace(double radius);
         sf::Vector2f findPlace();

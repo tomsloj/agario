@@ -7,6 +7,9 @@ class Menu
 {
     private:
         int chosenOption;
+
+        const sf::Color checked = sf::Color::Red;
+        const sf::Color unchecked = sf::Color::White;
     public:
         Menu();
         //Menu( int &window);

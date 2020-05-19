@@ -44,6 +44,14 @@ Game::Game(RenderWindow &window)
     
 }
 
+Game::~Game()
+{
+    players.clear();
+    feedCells.clear();
+    if( board != nullptr )
+        delete board;
+}
+
 void Game::createPlayer()
 {
     //players.push_back(Player());

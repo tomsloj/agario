@@ -27,6 +27,14 @@ Unit::Unit( Vector2f position, int mass /*= 1*/ )
     color = Color(30, 144, 255); //domyslny kolor
 }
 
+Unit::~Unit()
+{
+    if( sprite != nullptr )
+    {
+        delete sprite;
+    }
+}
+
 void Unit::grow(const int massOfGrowth)
 {
     mass += massOfGrowth;
