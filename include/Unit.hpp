@@ -7,10 +7,12 @@ class Unit
 {
     private:
         int mass;
-        double radius;
-        sf::Vector2f position;
+        
         sf::CircleShape *sprite;
         sf::Color color;
+    protected:
+        sf::Vector2f position;
+        double radius;
     public:
         Unit();
         Unit( double X, double Y, int mass = 1 );

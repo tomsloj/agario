@@ -18,14 +18,17 @@ Game::Game()
 Game::Game(RenderWindow &window)
 {
     srand( time( NULL ) );
-    Vector2u size = window.getSize();
+    //window.setSize(Vector2u(gameWindowWidth, gameWindowHeight));
     window.setFramerateLimit(FPSNumber);
-    //std::cout << window.getSize().x << " " << window.getSize().y << "\n";
+    Vector2u size = window.getSize();
+    
+    std::cout << window.getSize().x << " " << window.getSize().y << "\n";
     board = new Board(size);
+    player = new ManualPlayer(size.x/2, size.y/2);
+    board->addCell(player->playerCells[0]);
     std::cout<<"Game Window\n";
     window.clear();
     window.display();
-    
 
     clock.restart();
     while (window.isOpen())
@@ -38,6 +41,8 @@ Game::Game(RenderWindow &window)
         }
         window.clear();
         sleep(sf::milliseconds(2));
+        sf::Vector2i position = sf::Mouse::getPosition(window);
+        std::cout << position.x << " " << position.y << "\n";
         step(window);
         window.display();
     }
@@ -76,7 +81,10 @@ void Game::step( RenderWindow &window )
         board->addFeedUnit(new Unit(findPlace(), 1));
 
     //TODO sprawdzenie i uzupelnienei liczby graczy
-    
+
+    sf::Vector2i position = sf::Mouse::getPosition(window);
+    player->setMousePosition(position);
+
     Time time = clock.getElapsedTime();
     clock.restart();
     board->update(time);

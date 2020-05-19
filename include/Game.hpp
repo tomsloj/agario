@@ -4,12 +4,16 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "ManualPlayer.hpp"
+#include "Bot.hpp"
 #include "Player.hpp"
 #include "Board.hpp"
+
 
 class Game
 {
     private:
+        ManualPlayer *player;
         std::vector<Player>players;
         std::vector<Cell>feedCells;
         Board* board;

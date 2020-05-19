@@ -9,7 +9,7 @@ int main()
 {
     std::cout<<FPSNumber<< "\n";
     std::cout<<"Hello\n";
-    RenderWindow window(VideoMode(800, 600),"Tytul.");
+    RenderWindow window(VideoMode(gameWindowWidth, gameWindowHeight),"Tytul.");
     
     //int a = 300;
     Menu menu;

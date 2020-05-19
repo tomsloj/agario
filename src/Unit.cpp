@@ -58,6 +58,7 @@ sf::Vector2f Unit::getPosition()
 void Unit::draw( RenderWindow& window) 
 {
     setRadius( mass );
+    sprite->setOrigin(radius, radius);
     sprite->setPosition(position);
     sprite->setRadius(radius);
     sprite->setFillColor(color);

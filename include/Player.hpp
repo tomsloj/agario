@@ -7,10 +7,15 @@
 class Player
 {
     private:
-        std::vector<Cell>playerCells;
+        
     public:
         Player();
         ~Player();
+        Player(double x, double y);
+        void setColor( sf::Color color);
+        void draw( sf::RenderWindow& window);
+
+        std::vector<Cell*>playerCells;
 };
 
 #endif 
