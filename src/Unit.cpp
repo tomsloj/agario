@@ -7,12 +7,10 @@ using namespace sf;
 
 Unit::Unit(  )
 {
-    std::cout<<"UNIT\n";
 }
 
 Unit::Unit( double X, double Y, int mass /*= 1*/ )
 {
-    std::cout<<"UNIT\n";
     position = sf::Vector2f(X, Y);
     this->mass = mass;
     radius = mass;
@@ -22,7 +20,6 @@ Unit::Unit( double X, double Y, int mass /*= 1*/ )
 
 Unit::Unit( Vector2f position, int mass /*= 1*/ )
 {
-    std::cout<<"UNIT\n";
     this->position = position;
     this->mass = mass;
     radius = mass;

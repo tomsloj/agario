@@ -1,5 +1,6 @@
 #include "../include/Game.hpp"
 #include "../include/Unit.hpp"
+#include "../include/GlobalValues.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -18,6 +19,7 @@ Game::Game(RenderWindow &window)
 {
     srand( time( NULL ) );
     Vector2u size = window.getSize();
+    window.setFramerateLimit(FPSNumber);
     //std::cout << window.getSize().x << " " << window.getSize().y << "\n";
     board = new Board(size);
     std::cout<<"Game Window\n";

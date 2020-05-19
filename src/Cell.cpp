@@ -5,7 +5,6 @@
 
 Cell::Cell()
 {
-    std::cout<<"CELL\n";
 }
 
 void Cell::updateSpeed()
