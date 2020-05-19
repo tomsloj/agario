@@ -79,19 +79,19 @@ void Menu::run( RenderWindow &window )
         switch (chosenOption)
         {
         case 0:
-            menuText1.setColor(sf::Color::Red);
-            menuText2.setColor(sf::Color::White);
-            menuText3.setColor(sf::Color::White);
+            menuText1.setFillColor(checked);
+            menuText2.setFillColor(unchecked);
+            menuText3.setFillColor(unchecked);
             break;
         case 1:
-            menuText1.setColor(sf::Color::White);
-            menuText2.setColor(sf::Color::Red);
-            menuText3.setColor(sf::Color::White);
+            menuText1.setFillColor(unchecked);
+            menuText2.setFillColor(checked);
+            menuText3.setFillColor(unchecked);
             break;
         case 2:
-            menuText1.setColor(sf::Color::White);
-            menuText2.setColor(sf::Color::White);
-            menuText3.setColor(sf::Color::Red);
+            menuText1.setFillColor(unchecked);
+            menuText2.setFillColor(unchecked);
+            menuText3.setFillColor(checked);
             break;
         default:
             break;
