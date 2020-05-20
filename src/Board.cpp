@@ -10,7 +10,6 @@ using namespace sf;
 
 Board::Board()
 {
-    std::cout<<"CELL\n";
 }
 
 Board::Board(Vector2u size)
@@ -36,7 +35,7 @@ void Board::update( Time time )
             }
         }
     }
-    //tu bedzie sporo do zakodowania
+    //TODO zjadanie cell przez cell
 }
 
 void Board::addCell(Cell *cell)

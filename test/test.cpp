@@ -1,5 +1,5 @@
 #define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Student_Tests
+#define BOOST_TEST_MODULE Game_Tests
 
 #include <boost/test/unit_test.hpp>
 #include <SFML/Graphics.hpp>
@@ -58,6 +58,28 @@ BOOST_AUTO_TEST_CASE( increaseSizeUnitTest1 )
     Unit u = Unit( 0.0, 0.0, size );
     u.increaseMass( increase );
     BOOST_CHECK_EQUAL( u.getMass(), size - increase );
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+/**
+ * testy klasy Cell
+ */
+
+BOOST_AUTO_TEST_SUITE( testBoard )
+
+BOOST_AUTO_TEST_CASE( distanceTest1 )
+{
+    Cell cell(12.5, 31.22);
+    Unit unit(7.12, 49.2);
+    BOOST_REQUIRE_CLOSE( cell.distance(unit), 18.767653, 0.0001);
+}
+
+BOOST_AUTO_TEST_CASE( distanceTest2 )
+{
+    Cell cell(122.123, 333.777);
+    Unit unit(122.123, 333.777);
+    BOOST_REQUIRE_CLOSE( cell.distance(unit), 0, 0.0001);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

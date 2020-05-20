@@ -30,5 +30,5 @@ $(shell   mkdir -p $(OUT))
 
 .PHONY: test
 test:
-	@g++ -o test/testfile test/test.cpp -lboost_unit_test_framework -lsfml-graphics -lsfml-window -lsfml-system
-	@./test/testfile --log_level=test_suite
+	@g++ -o test/testfile test/test.cpp src/GlobalValues.cpp -lboost_unit_test_framework -lsfml-graphics -lsfml-window -lsfml-system
+	@./test/testfile --log_level=test_suite 

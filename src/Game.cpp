@@ -8,7 +8,7 @@
 using namespace sf;
 
 const int MAX_NUMBER_OF_PLAYERS = 70;
-const int MAX_NUMBER_OF_FEED_UNITS = 1500;
+const int MAX_NUMBER_OF_FEED_UNITS = 1000;
 
 Game::Game()
 {
@@ -41,8 +41,8 @@ Game::Game(RenderWindow &window)
         }
         window.clear();
         sleep(sf::milliseconds(2));
-        sf::Vector2i position = sf::Mouse::getPosition(window);
-        std::cout << position.x << " " << position.y << "\n";
+        //sf::Vector2i position = sf::Mouse::getPosition(window);
+        //std::cout << position.x << " " << position.y << "\n";
         step(window);
         window.display();
     }
@@ -89,7 +89,6 @@ void Game::step( RenderWindow &window )
     clock.restart();
     board->update(time);
     board->draw(window);
-    
 }
 
 double Game::fRand( double fMin, double fMax )
