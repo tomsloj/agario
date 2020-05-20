@@ -16,6 +16,7 @@ Unit::Unit( double X, double Y, int mass /*= 1*/ )
     radius = mass;
     sprite = new CircleShape();
     color = Color(30, 144, 255); //domyslny kolor
+    setRadius( mass );
 }
 
 Unit::Unit( Vector2f position, int mass /*= 1*/ )
@@ -25,6 +26,7 @@ Unit::Unit( Vector2f position, int mass /*= 1*/ )
     radius = mass;
     sprite = new CircleShape();
     color = Color(30, 144, 255); //domyslny kolor
+    setRadius( mass );
 }
 
 Unit::~Unit()
@@ -55,6 +57,11 @@ sf::Vector2f Unit::getPosition()
     return position;
 }
 
+double Unit::getRadius()
+{
+    return radius;
+}
+
 void Unit::draw( RenderWindow& window) 
 {
     setRadius( mass );
@@ -78,5 +85,5 @@ void Unit::setPosition( Vector2f position )
 void Unit::setRadius( int mass )
 {
     //trzeba to zoptymalizowa 
-    radius = mass;
+    radius = sqrt(mass);
 }

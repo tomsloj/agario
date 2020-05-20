@@ -4,6 +4,7 @@
 #include "Unit.hpp"
 #include "GlobalValues.hpp"
 
+#include <cmath>
 #include <SFML/Graphics.hpp>
 
 class Cell : public Unit
@@ -21,6 +22,8 @@ class Cell : public Unit
         void updateSpeed();
         void setDirecction(double x, double y);
         void update();
+        double distance(Unit &unit);
+        void grow(const int massOfGrowth);
 
         //void draw( sf::RenderWindow& window );
 };

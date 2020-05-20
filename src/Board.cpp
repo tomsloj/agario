@@ -20,6 +20,22 @@ Board::Board(Vector2u size)
 
 void Board::update( Time time )
 {
+    //sprawdzamy czy ktoras z komorek moze znejsc jakas kulke jedzenia
+    for( auto cell : cells )
+    {
+        for( vector<Unit*>::iterator unit = feedUnits.begin(); unit != feedUnits.end(); ++unit )
+        {
+            if( cell->distance(*(*unit)) <= cell->getRadius() )
+            {
+                Unit* u = *unit;
+                cout << cell->getMass() << "\n"; 
+                cell->grow(u->getMass());
+                delete u;
+                feedUnits.erase(unit);
+                --unit;
+            }
+        }
+    }
     //tu bedzie sporo do zakodowania
 }
 
