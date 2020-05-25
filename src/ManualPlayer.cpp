@@ -9,6 +9,11 @@ ManualPlayer::ManualPlayer(double x, double y) : Player(x, y)
     setColor(Color::Red);
 }
 
+ManualPlayer::ManualPlayer( Cell* cell ) : Player( cell )
+{
+    setColor(Color::Red);
+}
+
 void ManualPlayer::setMousePosition(Vector2i position)
 {
     for(auto cell: playerCells)

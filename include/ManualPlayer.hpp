@@ -11,6 +11,7 @@ class ManualPlayer : public Player
 
     public:
         ManualPlayer(double x, double y);
+        ManualPlayer(Cell* cell);
         void setMousePosition(sf::Vector2i position);
 };
 

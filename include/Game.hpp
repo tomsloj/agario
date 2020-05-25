@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <fstream>
 
 #include "ManualPlayer.hpp"
 #include "Bot.hpp"
@@ -27,6 +28,8 @@ class Game
         sf::Vector2f findPlace();
         double fRand( double fMin, double fMax );
         void step( sf::RenderWindow &window );
+        void save();
+        bool load();
 };
 
 #endif 

@@ -2,6 +2,7 @@
 #define UNIT_H
 
 #include <cmath>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 class Unit
@@ -21,13 +22,17 @@ class Unit
         ~Unit();
         virtual void grow(const int massOfGrowth);
         void increaseMass( int massReduction = 1 );
-        int getMass();
-        sf::Vector2f getPosition();
-        double getRadius();
+        int getMass() const;
+        sf::Color getColor() const;
+        sf::Vector2f getPosition() const;
+        double getRadius() const;
         void draw(sf::RenderWindow& window);
         void setColor(sf::Color color);
         void setPosition( sf::Vector2f position );
         void setRadius( int mass );
+
+        friend std::ostream& operator<<(std::ostream& stream,  const Unit& unit);
+        friend std::istream& operator>>(std::istream& stream,  Unit& unit);
 };
 
 #endif 

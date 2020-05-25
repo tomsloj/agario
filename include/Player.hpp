@@ -10,8 +10,10 @@ class Player
         
     public:
         Player();
-        ~Player();
         Player(double x, double y);
+        Player( Cell* cell );
+        ~Player();
+        
         void setColor( sf::Color color);
         void draw( sf::RenderWindow& window);
 

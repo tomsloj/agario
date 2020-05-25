@@ -82,9 +82,14 @@ vector<Unit*>& Board::getFeedUnits()
     return feedUnits;
 }
 
-Vector2u Board::getSize()
+Vector2u Board::getSize() const
 {
     return size;
+}
+
+void Board::setSize( Vector2u size )
+{
+    this->size = size;
 }
 
 void Board::draw( RenderWindow& window )
@@ -100,4 +105,46 @@ void Board::draw( RenderWindow& window )
     {
         feedUnits[i]->draw(window);
     }
+}
+
+std::ostream& operator<<(std::ostream& stream, const Board& board)
+{
+    stream << board.size.x << "\n";
+    stream << board.size.y << "\n";
+    stream << board.cells.size() << "\n";
+    for( unsigned int i = 0; i < board.cells.size(); ++i )
+    {
+        stream << *board.cells[i] << "\n";
+    }
+    stream << board.feedUnits.size() << "\n";
+    for( unsigned int i = 0; i < board.feedUnits.size(); ++i )
+    {
+        stream << *board.feedUnits[i] << "\n";
+    }
+    return stream;
+}
+
+std::istream& operator>>(std::istream& stream, Board& board)
+{
+    stream >> board.size.x;
+
+    stream >> board.size.y;
+
+    unsigned int cellsSize;
+    stream >> cellsSize;
+    for( unsigned int i = 0; i < cellsSize; ++i )
+    {
+        board.cells.push_back(new Cell());
+        stream >> *board.cells[i];
+    }
+
+    unsigned int feedUnitsSize;
+    stream >> feedUnitsSize;
+    for( unsigned int i = 0; i < feedUnitsSize; ++i )
+    {
+        board.feedUnits.push_back(new Unit());
+        stream >> *board.feedUnits[i];
+    }
+
+    return stream;
 }

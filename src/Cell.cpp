@@ -7,6 +7,7 @@ using namespace sf;
 
 Cell::Cell()
 {
+
 }
 
 Cell::Cell( double X, double Y, int mass /*= 1*/ ) : Unit(X, Y, mass)
@@ -32,6 +33,7 @@ void Cell::setDirecction(double x, double y)
 
 void Cell::update()
 {
+    updateSpeed();
     position.x += xDirection*speed;
     position.y += yDirection*speed;
     if( position.x < radius )
@@ -42,7 +44,6 @@ void Cell::update()
         position.x = gameWindowWidth - radius;
     if( position.y > gameWindowHeight - radius)
         position.y = gameWindowHeight - radius;
-
 }
 
 double Cell::distance(Unit &unit)

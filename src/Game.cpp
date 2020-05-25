@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace sf;
+using namespace std;
 
 const int MAX_NUMBER_OF_PLAYERS = 70;
 const int MAX_NUMBER_OF_FEED_UNITS = 1000;
@@ -21,11 +22,20 @@ Game::Game(RenderWindow &window)
     //window.setSize(Vector2u(gameWindowWidth, gameWindowHeight));
     window.setFramerateLimit(FPSNumber);
     Vector2u size = window.getSize();
-    
-    std::cout << window.getSize().x << " " << window.getSize().y << "\n";
     board = new Board(size);
-    player = new ManualPlayer(size.x/2, size.y/2);
-    board->addCell(player->playerCells[0]);
+    if ( !load() )
+    {
+        player = new ManualPlayer(size.x/2, size.y/2);
+        board->addCell(player->playerCells[0]);
+    }
+    else
+    {
+        player = new ManualPlayer( board->getCells()[0] );
+    }
+    
+        
+    std::cout << window.getSize().x << " " << window.getSize().y << "\n";
+    
     std::cout<<"Game Window\n";
     window.clear();
     window.display();
@@ -37,12 +47,14 @@ Game::Game(RenderWindow &window)
         while (window.pollEvent(e))
         {
             if(e.type == Event::Closed)
+            {
+                save();
                 window.close();
+            }
         }
         window.clear();
         sleep(sf::milliseconds(2));
-        //sf::Vector2i position = sf::Mouse::getPosition(window);
-        //std::cout << position.x << " " << position.y << "\n";
+
         step(window);
         window.display();
     }
@@ -82,9 +94,9 @@ void Game::step( RenderWindow &window )
 
     //TODO sprawdzenie i uzupelnienei liczby graczy
 
+
     sf::Vector2i position = sf::Mouse::getPosition(window);
     player->setMousePosition(position);
-
     Time time = clock.getElapsedTime();
     clock.restart();
     board->update(time);
@@ -95,4 +107,23 @@ double Game::fRand( double fMin, double fMax )
 {
     double f = (double) rand() / RAND_MAX;
     return fMin + f * (fMax - fMin);
+}
+
+void Game::save()
+{
+    ofstream myfile;
+    myfile.open ("bin/save");
+    myfile << *board;
+    myfile.close();
+}
+
+bool Game::load()
+{
+    ifstream myfile;
+    myfile.open("bin/save");
+    if( !myfile )
+        return false;
+    myfile >> *board;
+    myfile.close();
+    return true;
 }

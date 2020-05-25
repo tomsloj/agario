@@ -7,6 +7,7 @@ using namespace sf;
 
 Unit::Unit(  )
 {
+    sprite = new CircleShape();
 }
 
 Unit::Unit( double X, double Y, int mass /*= 1*/ )
@@ -47,19 +48,24 @@ void Unit::increaseMass( int massReduction /*= 1*/ )
     mass -= massReduction;
 }
 
-int Unit::getMass()
+int Unit::getMass() const
 {
     return mass;
 }
 
-sf::Vector2f Unit::getPosition()
+sf::Vector2f Unit::getPosition() const
 {
     return position;
 }
 
-double Unit::getRadius()
+double Unit::getRadius() const
 {
     return radius;
+}
+
+sf::Color Unit::getColor() const
+{
+    return color;
 }
 
 void Unit::draw( RenderWindow& window) 
@@ -86,4 +92,30 @@ void Unit::setRadius( int mass )
 {
     //trzeba to zoptymalizowa 
     radius = sqrt(mass);
+}
+
+std::ostream& operator<<(std::ostream& stream,  const Unit& unit)
+{
+    stream << unit.mass << "\n";
+    stream << unit.color.r<< "\n";
+    stream << unit.color.g << "\n";
+    stream << unit.color.b << "\n";
+    stream << unit.color.a << "\n";
+    stream << unit.position.x << "\n";
+    stream << unit.position.y << "\n";
+    stream << unit.radius << "\n";
+    return stream;
+}
+
+std::istream& operator>>(std::istream& stream,  Unit& unit)
+{
+    stream >> unit.mass;
+    stream >> unit.color.r;
+    stream >> unit.color.g;
+    stream >> unit.color.b;
+    stream >> unit.color.a;
+    stream >> unit.position.x;
+    stream >> unit.position.y;
+    stream >> unit.radius;
+    return stream;
 }

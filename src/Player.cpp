@@ -15,6 +15,11 @@ Player::Player(double x, double y)
     playerCells.push_back(new Cell(x, y, 5));
 }
 
+Player::Player( Cell* cell)
+{
+    playerCells.push_back( cell );
+}
+
 Player::~Player()
 {
     playerCells.clear();
