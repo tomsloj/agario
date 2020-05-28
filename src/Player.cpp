@@ -12,7 +12,7 @@ Player::Player()
 //create new player - one cell
 Player::Player(double x, double y)
 {
-    playerCells.push_back(new Cell(x, y, 5));
+    playerCells.push_back(new Cell(x, y, 500));
 }
 
 Player::Player( Cell* cell)

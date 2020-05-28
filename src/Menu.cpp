@@ -127,21 +127,21 @@ void Menu::chooseOption( RenderWindow &window )
     std::cout << chosenOption << "\n";
     switch (chosenOption)
     {
-    //graj
-    case 0:
-    {
-        std::cout << "graj" << "\n";
-        remove("bin/save");
-        Game game(window);
-        
-        break;
-    }
-    case 1:
-    {
-        Game game(window);
-    }
-        break;
-    default:
-        break;
+        //graj
+        case 0:
+        {
+            std::cout << "graj" << "\n";
+            remove("bin/save");
+            Game game(window);
+            
+            break;
+        }
+        case 1:
+        {
+            Game game(window);
+        }
+            break;
+        default:
+            break;
     }
 }

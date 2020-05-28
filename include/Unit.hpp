@@ -21,7 +21,7 @@ class Unit
         Unit( sf::Vector2f position, int mass = 1 );
         ~Unit();
         virtual void grow(const int massOfGrowth);
-        void increaseMass( int massReduction = 1 );
+        void decreaseMass( int massReduction = 1 );
         int getMass() const;
         sf::Color getColor() const;
         sf::Vector2f getPosition() const;

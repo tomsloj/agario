@@ -19,7 +19,9 @@ Board::Board(Vector2u size)
 
 void Board::update( Time time )
 {
-    //sprawdzamy czy ktoras z komorek moze znejsc jakas kulke jedzenia
+    std::vector<Cell*> cellsToDelete;
+
+    //sprawdzamy czy ktoras z komorek moze zjesc jakas kulke jedzenia
     for( auto cell : cells )
     {
         for( vector<Unit*>::iterator unit = feedUnits.begin(); unit != feedUnits.end(); ++unit )
@@ -27,13 +29,49 @@ void Board::update( Time time )
             if( cell->distance(*(*unit)) <= cell->getRadius() )
             {
                 Unit* u = *unit;
-                cout << cell->getMass() << "\n"; 
+                //cout << cell->getMass() << "\n"; 
                 cell->grow(u->getMass());
                 delete u;
                 feedUnits.erase(unit);
                 --unit;
             }
         }
+
+        for( vector<Cell*>::iterator cell2 = cells.begin(); cell2 != cells.end(); ++cell2 )
+        {
+            if( cell->distance(*(*cell2)) <= cell->getRadius() )
+            {
+                Cell* c = *cell2;
+
+                if(cell->getMass() > c->getMass())
+                {
+                    cell->grow(c->getMass() / 2); 
+                    cellsToDelete.push_back(c);
+                    //--cell2;
+                    
+                }
+            }
+        }
+    }
+
+
+    // nie mam pojecia jak to dziala, ale dziala
+    for( auto cell : cellsToDelete )
+    {
+        cells.erase(std::remove(cells.begin(), cells.end(), cell), cells.end());
+        //if(cell) delete cell;
+        //delete cell;
+    }
+     
+            
+                
+            
+
+    
+ 
+    for( auto bot : bots)
+    {
+        bot->setNextPosition(getFeedUnits(), getCells());
     }
     //TODO zjadanie cell przez cell
 }
@@ -41,6 +79,11 @@ void Board::update( Time time )
 void Board::addCell(Cell *cell)
 {
     cells.push_back(cell);
+}
+
+void Board::addBot( BotBehaviour *bot)
+{
+    bots.push_back(bot);
 }
 
 void Board::addFeedUnit(Unit *unit)

@@ -20,6 +20,9 @@ Cell::Cell( Vector2f position, int mass /*= 1*/ ) : Unit(position, mass)
     speed = 3.0 / sqrt(radius);
 }
 
+Cell::~Cell() = default;
+
+
 void Cell::updateSpeed()
 {
     speed = 3.0 / sqrt(radius);
@@ -50,6 +53,13 @@ double Cell::distance(Unit &unit)
 {
     double x = position.x - unit.getPosition().x;
     double y = position.y - unit.getPosition().y;
+    return sqrt( x * x + y * y );
+}
+
+double Cell::distance(Cell &cell)
+{
+    double x = position.x - cell.getPosition().x;
+    double y = position.y - cell.getPosition().y;
     return sqrt( x * x + y * y );
 }
 

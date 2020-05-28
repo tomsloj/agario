@@ -50,6 +50,19 @@ Game::Game(RenderWindow &window)
             {
                 save();
                 window.close();
+            }else
+            if( e.type == Event::KeyPressed )
+            {
+                switch( e.key.code )
+                {
+                    case Keyboard::M:
+                        save();
+                        window.clear();
+                        return;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         window.clear();
@@ -92,7 +105,14 @@ void Game::step( RenderWindow &window )
     while( board->getFeedUnits().size() < MAX_NUMBER_OF_FEED_UNITS )
         board->addFeedUnit(new Unit(findPlace(), 1));
 
-    //TODO sprawdzenie i uzupelnienei liczby graczy
+    //TODO sprawdzenie i uzupelnienie liczby graczy
+
+    while( board->getCells().size() < MAX_NUMBER_OF_PLAYERS )
+    {
+        bot = new BotBehaviour(findPlace().x, findPlace().y);
+        board->addCell(bot->botCells[0]);
+        board->addBot(bot);
+    }
 
 
     sf::Vector2i position = sf::Mouse::getPosition(window);

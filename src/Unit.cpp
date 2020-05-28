@@ -43,7 +43,7 @@ void Unit::grow(const int massOfGrowth)
     mass += massOfGrowth;
 }
 
-void Unit::increaseMass( int massReduction /*= 1*/ )
+void Unit::decreaseMass( int massReduction /*= 1*/ )
 {
     mass -= massReduction;
 }

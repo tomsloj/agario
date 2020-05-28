@@ -19,10 +19,12 @@ class Cell : public Unit
         Cell();
         Cell( double X, double Y, int mass = 1 );
         Cell( sf::Vector2f position, int mass = 1 );
+        ~Cell();
         void updateSpeed();
         void setDirecction(double x, double y);
         void update();
         double distance(Unit &unit);
+        double distance(Cell &cell);
         void grow(const int massOfGrowth);
 
         //void draw( sf::RenderWindow& window );
