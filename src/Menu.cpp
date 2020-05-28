@@ -25,35 +25,31 @@ void Menu::run( RenderWindow &window )
     std::cout<<"RUN\n";
     Event event;
     Font font;
-    Text menuText1;
-    Text menuText2;
-    Text menuText3;
-    Text menuText4;
 
     if (!font.loadFromFile("assets/arial.ttf"))
 	{
 		std::cerr << "Error loading arial.ttf" << std::endl;
 	}
 
-    menuText1.setFont(font);
-    menuText1.setCharacterSize(20);
-    menuText1.setString("Play");
-    menuText1.setPosition({280.f, 160.f});
+    menuTextPlay.setFont(font);
+    menuTextPlay.setCharacterSize(20);
+    menuTextPlay.setString("Play");
+    menuTextPlay.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 4 / 12)});
 
-    menuText2.setFont(font);
-    menuText2.setCharacterSize(20);
-    menuText2.setString("Load game");
-    menuText2.setPosition({280.f, 210.f});
+    menuTextLoad.setFont(font);
+    menuTextLoad.setCharacterSize(20);
+    menuTextLoad.setString("Load game");
+    menuTextLoad.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 5 / 12)});
 
-    menuText3.setFont(font);
-    menuText3.setCharacterSize(20);
-    menuText3.setString("Settings");
-    menuText3.setPosition({280.f, 260.f});
+    menuTextSettings.setFont(font);
+    menuTextSettings.setCharacterSize(20);
+    menuTextSettings.setString("Settings");
+    menuTextSettings.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 6 / 12)});
 
-    menuText4.setFont(font);
-    menuText4.setCharacterSize(20);
-    menuText4.setString("High scores");
-    menuText4.setPosition({280.f, 310.f});
+    menuTextScores.setFont(font);
+    menuTextScores.setCharacterSize(20);
+    menuTextScores.setString("High scores");
+    menuTextScores.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 7 / 12)});
     
 
     while (window.isOpen())
@@ -63,6 +59,7 @@ void Menu::run( RenderWindow &window )
             if(event.type == Event::Closed)
                 window.close();
             //nacisnieto przycisk
+            else
             if(event.type == Event::KeyPressed)
             {
                 switch(event.key.code)
@@ -81,41 +78,76 @@ void Menu::run( RenderWindow &window )
                     
                 }
             }
+            else
+            if( event.type ==Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left )
+            {
+                Vector2i position = Mouse::getPosition(window);
+
+                if( position.x > gameWindowWidth * 9 / 20 && position.x < gameWindowWidth * 2 / 3)
+                {
+                    if( position.y > gameWindowHeight / 3 && position.y < gameWindowHeight * 23 / 60 )
+                    {
+                        chosenOption = 0;
+                        chooseOption( window );
+                    }
+                    else
+                    if( position.y > gameWindowHeight * 5 / 12 && position.y < gameWindowHeight * 7 / 15 )
+                    {
+                        chosenOption = 1;
+                        chooseOption( window );
+                    }
+                    else
+                    if( position.y > gameWindowHeight / 2 && position.y < gameWindowHeight * 11 / 20 )
+                    {
+                        chosenOption = 2;
+                        chooseOption( window );
+                    }
+                    else
+                    if( position.y > gameWindowHeight * 7 / 12 && position.y < gameWindowHeight * 19 / 30 )
+                    {
+                        chosenOption = 3;
+                        chooseOption( window );
+                    }
+                    
+                }
+            }
+            
+
         }
         switch (chosenOption)
         {
         case 0:
-            menuText1.setFillColor(checked);
-            menuText2.setFillColor(unchecked);
-            menuText3.setFillColor(unchecked);
-            menuText4.setFillColor(unchecked);
+            menuTextPlay.setFillColor(checked);
+            menuTextLoad.setFillColor(unchecked);
+            menuTextSettings.setFillColor(unchecked);
+            menuTextScores.setFillColor(unchecked);
             break;
         case 1:
-            menuText1.setFillColor(unchecked);
-            menuText2.setFillColor(checked);
-            menuText3.setFillColor(unchecked);
-            menuText4.setFillColor(unchecked);
+            menuTextPlay.setFillColor(unchecked);
+            menuTextLoad.setFillColor(checked);
+            menuTextSettings.setFillColor(unchecked);
+            menuTextScores.setFillColor(unchecked);
             break;
         case 2:
-            menuText1.setFillColor(unchecked);
-            menuText2.setFillColor(unchecked);
-            menuText3.setFillColor(checked);
-            menuText4.setFillColor(unchecked);
+            menuTextPlay.setFillColor(unchecked);
+            menuTextLoad.setFillColor(unchecked);
+            menuTextSettings.setFillColor(checked);
+            menuTextScores.setFillColor(unchecked);
             break;
         case 3:
-            menuText1.setFillColor(unchecked);
-            menuText2.setFillColor(unchecked);
-            menuText3.setFillColor(unchecked);
-            menuText4.setFillColor(checked);
+            menuTextPlay.setFillColor(unchecked);
+            menuTextLoad.setFillColor(unchecked);
+            menuTextSettings.setFillColor(unchecked);
+            menuTextScores.setFillColor(checked);
             break;
         default:
             break;
         }
 
-        window.draw(menuText1);
-        window.draw(menuText2);
-        window.draw(menuText3);
-        window.draw(menuText4);
+        window.draw(menuTextPlay);
+        window.draw(menuTextLoad);
+        window.draw(menuTextSettings);
+        window.draw(menuTextScores);
         window.display();
         
     }
@@ -124,7 +156,6 @@ void Menu::run( RenderWindow &window )
 
 void Menu::chooseOption( RenderWindow &window )
 {
-    std::cout << chosenOption << "\n";
     switch (chosenOption)
     {
     //graj
