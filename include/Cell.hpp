@@ -27,6 +27,8 @@ class Cell : public Unit
         double distance(Cell &cell);
         void grow(const int massOfGrowth);
 
+        sf::Vector2i getDirection();
+
         //void draw( sf::RenderWindow& window );
 };
 

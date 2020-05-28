@@ -12,12 +12,12 @@ Cell::Cell()
 
 Cell::Cell( double X, double Y, int mass /*= 1*/ ) : Unit(X, Y, mass)
 {
-    speed = 3.0 / sqrt(radius);
+    speed = 1.0 / sqrt(radius/2);
 }
 
 Cell::Cell( Vector2f position, int mass /*= 1*/ ) : Unit(position, mass)
 {
-    speed = 3.0 / sqrt(radius);
+    speed = 1.0 / sqrt(radius/2);
 }
 
 Cell::~Cell() = default;
@@ -25,7 +25,7 @@ Cell::~Cell() = default;
 
 void Cell::updateSpeed()
 {
-    speed = 3.0 / sqrt(radius);
+    speed = 1.0 / sqrt(radius/2);
 }
 
 void Cell::setDirecction(double x, double y)
@@ -68,6 +68,11 @@ void Cell::grow(const int massOfGrowth)
 {
     Unit::grow(massOfGrowth);
     updateSpeed();
+}
+
+sf::Vector2i Cell::getDirection()
+{
+    return sf::Vector2i(xDirection, yDirection);
 }
 
 /*
