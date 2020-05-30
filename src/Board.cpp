@@ -22,70 +22,86 @@ void Board::update( Time time, Player *player )
     std::vector<Cell*> cellsToDelete;
 
     //sprawdzamy czy ktoras z komorek moze zjesc jakas kulke jedzenia
-    for( auto cell : cells )
+    for( vector<Cell*>::iterator cell = cells.begin(); cell != cells.end(); ++cell )
     {
+
         for( vector<Unit*>::iterator unit = feedUnits.begin(); unit != feedUnits.end(); ++unit )
         {
-            if( cell->distance(*(*unit)) <= cell->getRadius() )
+            if( (*cell)->distance(*(*unit)) <= (*cell)->getRadius() )
             {
-                Unit* u = *unit;
-                //cout << cell->getMass() << "\n"; 
-                cell->grow(u->getMass());
-                delete u;
+                (*cell)->grow((*unit)->getMass());
+                delete (*unit);
                 feedUnits.erase(unit);
                 --unit;
             }
         }
-
-        for( vector<Cell*>::iterator cell2 = cells.begin(); cell2 != cells.end(); ++cell2 )
+        
+        for( vector<Cell*>::iterator cell2 = cell + 1; cell2 != cells.end(); ++cell2 )
         {
-            if( cell->distance(*(*cell2)) <= cell->getRadius() )
+            if( (*cell)->distance(*(*cell2)) <= (*cell)->getRadius() )
             {
-                Cell* c = *cell2;
-
-                if(cell->getMass() > c->getMass())
+                if((*cell)->getMass() > (*cell2)->getMass())
                 {
-                    if(c->isItPlayer())
+                    if((*cell2)->isItPlayer())
                     {
-                        player->removeCell(c);
+                        player->removeCell((*cell2));
                     }
-                    cell->grow(c->getMass() / 2); 
-                    cellsToDelete.push_back(c);
+                    else
+                    {
+                        for(auto bot : bots)
+                        {
+                            if(bot->botCells[0] == (*cell2))
+                            {
+                                deleteBot(bot);
+                                delete bot;
+                            } 
+                        }
+                    }
                     
+                    (*cell)->grow((*cell2)->getMass() / 2); 
+                    cellsToDelete.push_back(*cell2);
+                    cells.erase(cell2);
+                    --cell2;
+                }
+            }
+            else if( (*cell2)->distance(*(*cell)) <= (*cell2)->getRadius() )
+            {
+                if((*cell)->getMass() < (*cell2)->getMass())
+                {
+                    if((*cell)->isItPlayer())
+                    {
+                        player->removeCell((*cell));
+                    }
+                    else
+                    {
+                        for(auto bot : bots)
+                        {
+                            if(bot->botCells[0] == (*cell))
+                            {
+                                deleteBot(bot);
+                                delete bot;
+                            } 
+                        }
+                    }
+
+                    (*cell2)->grow((*cell)->getMass() / 2); 
+                    cellsToDelete.push_back(*cell);
                 }
             }
         }
     }
 
-
-
-    // nie mam pojecia jak to dziala, ale dziala - no nie do konca, bo nie usuwa faktycznie obiektow, za to znikaja z mapy
+    // dziala
     for( auto cell : cellsToDelete )
     {
-        //if(cell) delete cell;
-        //cells.erase(std::remove(cells.begin(), cells.end(), cell), cells.end());
         deleteCell(cell);
-        //if(cell) delete cell;
-        
-        //delete cell;
-
-    }
-     
+        delete cell;
+    }    
             
     for( auto bot : bots)
     {
-        if(bot->botCells.size() == 0 || bot->botCells[0] == NULL)
-        {
-            deleteBot(bot);
-            delete bot;
-        }
-        else
-        {
-            bot->setNextPosition(getFeedUnits(), getCells());
-        }     
+        bot->setNextPosition(getFeedUnits(), getCells());
     }
-
-    //std::cout << bots.size() << std::endl;
 }
 
 void Board::addCell(Cell *cell)

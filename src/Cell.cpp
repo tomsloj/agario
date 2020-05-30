@@ -30,7 +30,7 @@ Cell::Cell( Vector2f position, double acc, bool isItPlayer, int mass /*= 1*/) : 
 
 Cell::~Cell()
 {
-    std::cout << "usuwa" << std::endl;
+    //std::cout << "usuwa" << std::endl;
 }
 
 
