@@ -26,7 +26,7 @@ Game::Game(RenderWindow &window)
     if ( !load() )
     {
         player = new ManualPlayer(size.x/2, size.y/2);
-        board->addCell(player->playerCells[0]);
+        board->addCell(player->cells[0]);
     }
     else
     {
@@ -59,6 +59,13 @@ Game::Game(RenderWindow &window)
                         save();
                         window.clear();
                         return;
+                        break;
+                    case Keyboard::Space:
+                        //tmp.assign( player->Divide(sf::Mouse::getPosition(window)) );
+
+                        for(auto cell : player->Divide(sf::Mouse::getPosition(window))) board->addCell(cell);
+                        //board->addCell(player->Divide(sf::Mouse::getPosition(window))[0]);
+                        //players.insert(players.end(),  player->Divide(sf::Mouse::getPosition(window)) );
                         break;
                     default:
                         break;
@@ -109,7 +116,7 @@ void Game::step( RenderWindow &window )
 
     while( board->getCells().size() < MAX_NUMBER_OF_PLAYERS )
     {
-        bot = new BotBehaviour(findPlace().x, findPlace().y);
+        bot = new Bot(findPlace().x, findPlace().y);
         board->addCell(bot->botCells[0]);
         board->addBot(bot);
     }
@@ -119,7 +126,7 @@ void Game::step( RenderWindow &window )
     player->setMousePosition(position);
     Time time = clock.getElapsedTime();
     clock.restart();
-    board->update(time);
+    board->update(time, player);
     board->draw(window);
 }
 

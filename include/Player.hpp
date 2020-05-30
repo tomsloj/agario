@@ -9,15 +9,17 @@ class Player
     private:
         
     public:
+        std::vector<Cell*> cells;
+
         Player();
-        Player(double x, double y);
-        Player( Cell* cell );
+        Player(double x, double y, double acc, int mass);
+        Player(Cell* cell);
         ~Player();
         
         void setColor( sf::Color color);
         void draw( sf::RenderWindow& window);
 
-        std::vector<Cell*>playerCells;
+        void removeCell(Cell* cell);
 };
 
 #endif 

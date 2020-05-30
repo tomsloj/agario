@@ -3,7 +3,7 @@
 
 #include "Cell.hpp"
 #include "Unit.hpp"
-#include "BotBehaviour.hpp"
+#include "Bot.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -13,7 +13,7 @@ class Board
     private:
         sf::Vector2u size;
         std::vector<Cell*> cells;
-        std::vector<BotBehaviour*> bots;
+        std::vector<Bot*> bots;
         std::vector<Unit*> feedUnits;
     protected:
         
@@ -21,11 +21,12 @@ class Board
         
         Board();
         Board( sf::Vector2u size);
-        void update( sf::Time time );
+        void update( sf::Time time , Player *player);
         void addCell( Cell *cell);
-        void addBot( BotBehaviour *bot);
+        void addBot( Bot *bot);
         void addFeedUnit( Unit *unit );
         void deleteCell( Cell *cell );
+        void deleteBot(Bot* bot);
         void deleteFeedUnit( Unit *unit );
         std::vector<Cell*>& getCells();
         std::vector<Unit*>& getFeedUnits();

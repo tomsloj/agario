@@ -17,7 +17,7 @@ Board::Board(Vector2u size)
     this->size = size;
 }
 
-void Board::update( Time time )
+void Board::update( Time time, Player *player )
 {
     std::vector<Cell*> cellsToDelete;
 
@@ -45,9 +45,12 @@ void Board::update( Time time )
 
                 if(cell->getMass() > c->getMass())
                 {
+                    if(c->isItPlayer())
+                    {
+                        player->removeCell(c);
+                    }
                     cell->grow(c->getMass() / 2); 
                     cellsToDelete.push_back(c);
-                    //--cell2;
                     
                 }
             }
@@ -55,25 +58,34 @@ void Board::update( Time time )
     }
 
 
-    // nie mam pojecia jak to dziala, ale dziala
+
+    // nie mam pojecia jak to dziala, ale dziala - no nie do konca, bo nie usuwa faktycznie obiektow, za to znikaja z mapy
     for( auto cell : cellsToDelete )
     {
-        cells.erase(std::remove(cells.begin(), cells.end(), cell), cells.end());
         //if(cell) delete cell;
+        //cells.erase(std::remove(cells.begin(), cells.end(), cell), cells.end());
+        deleteCell(cell);
+        //if(cell) delete cell;
+        
         //delete cell;
+
     }
      
             
-                
-            
-
-    
- 
     for( auto bot : bots)
     {
-        bot->setNextPosition(getFeedUnits(), getCells());
+        if(bot->botCells.size() == 0 || bot->botCells[0] == NULL)
+        {
+            deleteBot(bot);
+            delete bot;
+        }
+        else
+        {
+            bot->setNextPosition(getFeedUnits(), getCells());
+        }     
     }
-    //TODO zjadanie cell przez cell
+
+    //std::cout << bots.size() << std::endl;
 }
 
 void Board::addCell(Cell *cell)
@@ -81,7 +93,7 @@ void Board::addCell(Cell *cell)
     cells.push_back(cell);
 }
 
-void Board::addBot( BotBehaviour *bot)
+void Board::addBot( Bot *bot)
 {
     bots.push_back(bot);
 }
@@ -110,6 +122,17 @@ void Board::deleteFeedUnit(Unit *unit)
         if(*it == unit)
         {
             feedUnits.erase(it);
+            break;
+        }
+    }
+}
+void Board::deleteBot(Bot* bot)
+{
+    for( vector<Bot*>::iterator it = bots.begin(); it != bots.end(); ++it )
+    {
+        if(*it == bot)
+        {
+            bots.erase(it);
             break;
         }
     }

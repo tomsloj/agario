@@ -14,7 +14,7 @@ Unit::Unit( double X, double Y, int mass /*= 1*/ )
 {
     position = sf::Vector2f(X, Y);
     this->mass = mass;
-    radius = mass;
+    //radius = mass;
     sprite = new CircleShape();
     color = Color(30, 144, 255); //domyslny kolor
     setRadius( mass );
@@ -24,7 +24,7 @@ Unit::Unit( Vector2f position, int mass /*= 1*/ )
 {
     this->position = position;
     this->mass = mass;
-    radius = mass;
+    //radius = mass;
     sprite = new CircleShape();
     color = Color(30, 144, 255); //domyslny kolor
     setRadius( mass );
@@ -46,6 +46,11 @@ void Unit::grow(const int massOfGrowth)
 void Unit::decreaseMass( int massReduction /*= 1*/ )
 {
     mass -= massReduction;
+}
+
+void Unit::setMass (int newMass)
+{
+    mass = newMass;
 }
 
 int Unit::getMass() const

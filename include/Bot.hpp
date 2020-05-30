@@ -9,12 +9,16 @@ class Bot : public Player
 
     public:
 
+        std::vector<Cell*>botCells;
+
         Bot();
         Bot(double x, double y);
         Bot( Cell* cell );
         ~Bot();
 
-        std::vector<Cell*>botCells;
+        void setColor( sf::Color color);
+
+        void setNextPosition(std::vector<Unit*> feedUnits, std::vector<Cell*> cells);
 };
 
 #endif 

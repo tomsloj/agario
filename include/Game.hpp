@@ -9,7 +9,6 @@
 #include "Bot.hpp"
 #include "Player.hpp"
 #include "Board.hpp"
-#include "BotBehaviour.hpp"
 
 
 class Game
@@ -17,9 +16,10 @@ class Game
     private:
         ManualPlayer *player;
         std::vector<Player>players;
-        BotBehaviour *bot;
+        Bot *bot;
         std::vector<Bot>bots;
         std::vector<Cell>feedCells;
+        std::vector<Cell*> tmp;
         Board* board;
         sf::Clock clock;
     public:
