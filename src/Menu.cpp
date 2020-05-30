@@ -25,6 +25,10 @@ void Menu::run( RenderWindow &window )
     std::cout<<"RUN\n";
     Event event;
     Font font;
+    Text menuTextPlay;
+    Text menuTextLoad;
+    Text menuTextSettings;
+    Text menuTextScores;
 
     if (!font.loadFromFile("assets/arial.ttf"))
 	{
@@ -34,22 +38,22 @@ void Menu::run( RenderWindow &window )
     menuTextPlay.setFont(font);
     menuTextPlay.setCharacterSize(20);
     menuTextPlay.setString("Play");
-    menuTextPlay.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 4 / 12)});
+    menuTextPlay.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowWidth * 4 / 12)});
 
     menuTextLoad.setFont(font);
     menuTextLoad.setCharacterSize(20);
     menuTextLoad.setString("Load game");
-    menuTextLoad.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 5 / 12)});
+    menuTextLoad.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowWidth * 5 / 12)});
 
     menuTextSettings.setFont(font);
     menuTextSettings.setCharacterSize(20);
     menuTextSettings.setString("Settings");
-    menuTextSettings.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 6 / 12)});
+    menuTextSettings.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowWidth * 6 / 12)});
 
     menuTextScores.setFont(font);
     menuTextScores.setCharacterSize(20);
     menuTextScores.setString("High scores");
-    menuTextScores.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowHeight * 7 / 12)});
+    menuTextScores.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowWidth * 7 / 12)});
     
 
     while (window.isOpen())
@@ -59,7 +63,6 @@ void Menu::run( RenderWindow &window )
             if(event.type == Event::Closed)
                 window.close();
             //nacisnieto przycisk
-            else
             if(event.type == Event::KeyPressed)
             {
                 switch(event.key.code)
@@ -111,8 +114,6 @@ void Menu::run( RenderWindow &window )
                     
                 }
             }
-            
-
         }
         switch (chosenOption)
         {
@@ -156,6 +157,7 @@ void Menu::run( RenderWindow &window )
 
 void Menu::chooseOption( RenderWindow &window )
 {
+    std::cout << chosenOption << "\n";
     switch (chosenOption)
     {
         //graj

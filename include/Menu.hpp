@@ -11,10 +11,6 @@ class Menu
         const sf::Color checked = sf::Color::Red;
         const sf::Color unchecked = sf::Color::White;
 
-        Text menuTextPlay;
-        Text menuTextLoad;
-        Text menuTextSettings;
-        Text menuTextScores;
     public:
         Menu();
         //Menu( int &window);
