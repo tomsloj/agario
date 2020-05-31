@@ -33,6 +33,8 @@ class Game
         void step( sf::RenderWindow &window );
         void save();
         bool load();
+
+        void gameOver(sf::RenderWindow &window);
 };
 
 #endif 

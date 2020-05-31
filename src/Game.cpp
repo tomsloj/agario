@@ -8,12 +8,11 @@
 using namespace sf;
 using namespace std;
 
-const int MAX_NUMBER_OF_PLAYERS = 70;
-const int MAX_NUMBER_OF_FEED_UNITS = 1000;
+const int MAX_NUMBER_OF_PLAYERS = 60;
+const int MAX_NUMBER_OF_FEED_UNITS = 900;
 
 Game::Game()
 {
-    std::cout<<"Game\n";
 }
 
 Game::Game(RenderWindow &window)
@@ -39,7 +38,7 @@ Game::Game(RenderWindow &window)
     std::cout<<"Game Window\n";
     window.clear();
     window.display();
-
+    
     clock.restart();
     while (window.isOpen())
     {
@@ -71,13 +70,29 @@ Game::Game(RenderWindow &window)
                         break;
                 }
             }
+            
         }
         window.clear();
         sleep(sf::milliseconds(2));
 
         step(window);
         window.display();
+
+        double maxRadius = 0;
+        for( auto cell: player->cells )
+        {
+            maxRadius = max( maxRadius, cell->getRadius());
+        }
+        cout << maxRadius << " " << player->cells.size() << "\n";
+
+        if( player->cells.size() == 0 || maxRadius >= min(gameWindowHeight, gameWindowWidth) / 3 || maxRadius == 0 )
+        {
+            gameOver(window);
+            break;
+        }
+        
     }
+    
     
 }
 
@@ -85,8 +100,19 @@ Game::~Game()
 {
     players.clear();
     feedCells.clear();
-    if( board != nullptr )
+    bots.clear();
+    for (auto p : tmp)
+    {
+        if( p != NULL )
+        delete p;
+    } 
+    tmp.clear();
+    if( board != NULL )
         delete board;
+    if( bot != NULL )
+        delete bot;
+    if( player != NULL )
+        delete player;
 }
 
 void Game::createPlayer()
@@ -153,4 +179,10 @@ bool Game::load()
     myfile >> *board;
     myfile.close();
     return true;
+}
+
+void Game::gameOver(RenderWindow &window)
+{
+    window.clear(sf::Color::Black);
+    //sleep(sf::milliseconds(200));
 }
