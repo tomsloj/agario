@@ -8,18 +8,17 @@
 class Unit
 {
     private:
-        int mass;
-        
         sf::CircleShape *sprite;
         sf::Color color;
     protected:
         sf::Vector2f position;
         double radius;
+        int mass;
     public:
         Unit();
         Unit( double X, double Y, int mass = 1 );
         Unit( sf::Vector2f position, int mass = 1 );
-        ~Unit();
+        virtual ~Unit();
         virtual void grow(const int massOfGrowth);
         void decreaseMass( int massReduction = 1 );
         void setMass (int newMass);

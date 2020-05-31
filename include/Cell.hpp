@@ -13,14 +13,11 @@ class Cell : public Unit
     private:
         double speed;
         double acceleration;
-        //wektor jednostkkowy  wskazujacy kierunek
         double xDirection;
         double yDirection;
         bool isPlayer;
-        //sf::Time deltaTime;
         sf::Clock clock;
-        //int accTime;
-        //Player *player;
+        int stepsToDecreaseMass;
         
     public:
         Cell();
@@ -30,6 +27,7 @@ class Cell : public Unit
         void updateSpeed();
         void setDirecction(double x, double y);
         void update();
+        int calculateSteps();
         double distance(Unit &unit);
         double distance(Cell &cell);
         void grow(const int massOfGrowth);

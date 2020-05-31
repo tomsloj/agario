@@ -18,14 +18,12 @@ Cell::Cell( double X, double Y, double acc, bool isItPlayer, int mass /*= 1*/) :
     isPlayer = isItPlayer;
     speed = 5.0 / sqrt(radius/2) + acc;
     clock.restart();
+    stepsToDecreaseMass = calculateSteps();
 }
 
 Cell::Cell( Vector2f position, double acc, bool isItPlayer, int mass /*= 1*/) : Unit(position, mass)
 {
-    acceleration = acc;
-    isPlayer = isItPlayer;
-    speed = 5.0 / sqrt(radius/2) + acc;
-    clock.restart();
+    Cell(position.x, position.y, acc, isItPlayer, mass);
 }
 
 Cell::~Cell()
@@ -57,6 +55,13 @@ void Cell::setDirecction(double x, double y)
 
 void Cell::update()
 {
+    --stepsToDecreaseMass;
+    if( stepsToDecreaseMass <= 0 )
+    {
+        if( mass > 1    )
+            decreaseMass(1);
+        stepsToDecreaseMass = calculateSteps();
+    }
     updateSpeed();
     position.x += xDirection*speed;
     position.y += yDirection*speed;
@@ -68,6 +73,11 @@ void Cell::update()
         position.x = gameWindowWidth - radius;
     if( position.y > gameWindowHeight - radius)
         position.y = gameWindowHeight - radius;
+}
+
+int Cell::calculateSteps()
+{
+    return static_cast<int>(20000.0/static_cast<double>(mass));
 }
 
 double Cell::distance(Unit &unit)
@@ -125,12 +135,6 @@ Cell *Cell::Division(sf::Vector2i mousePosition)
     Unit::setMass(newMass);
 
 	newcell = new Cell(tmpX, tmpY, SPEED, true,  newMass);
+    newcell->setColor(sf::Color::Red);
 	return newcell;
 }
-
-/*
-void Cell::draw( RenderWindow& window ) : Unit(window)
-{
-
-}
-*/

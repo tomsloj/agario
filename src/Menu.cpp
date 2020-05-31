@@ -145,6 +145,7 @@ void Menu::run( RenderWindow &window )
             break;
         }
 
+        window.clear(sf::Color::Black);
         window.draw(menuTextPlay);
         window.draw(menuTextLoad);
         window.draw(menuTextSettings);

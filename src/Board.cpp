@@ -16,6 +16,30 @@ Board::Board(Vector2u size)
 {
     this->size = size;
 }
+Board::~Board()
+{
+    
+    for( auto p : cells )
+    {
+        if( p != nullptr )
+        {
+            delete p;
+            p = NULL;
+        }
+    }
+    cells.clear();
+    
+    for( auto p : feedUnits )
+    {
+        if( p != nullptr )
+        {
+            delete p;
+            p = NULL;
+        }
+    }
+    feedUnits.clear();
+    
+}
 
 void Board::update( Time time, Player *player )
 {
@@ -31,6 +55,7 @@ void Board::update( Time time, Player *player )
             {
                 (*cell)->grow((*unit)->getMass());
                 delete (*unit);
+                *unit = NULL;
                 feedUnits.erase(unit);
                 --unit;
             }
@@ -54,6 +79,7 @@ void Board::update( Time time, Player *player )
                             {
                                 deleteBot(bot);
                                 delete bot;
+                                bot = NULL;
                             } 
                         }
                     }
@@ -80,6 +106,7 @@ void Board::update( Time time, Player *player )
                             {
                                 deleteBot(bot);
                                 delete bot;
+                                bot = NULL;
                             } 
                         }
                     }
@@ -91,11 +118,12 @@ void Board::update( Time time, Player *player )
         }
     }
 
-    // dziala
     for( auto cell : cellsToDelete )
     {
         deleteCell(cell);
-        delete cell;
+        if( cell != NULL )
+            delete cell;
+        cell = NULL;
     }    
             
     for( auto bot : bots)

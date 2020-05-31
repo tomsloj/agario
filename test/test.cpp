@@ -13,6 +13,12 @@
 #include "../include/Board.hpp"
 #include "../src/Board.cpp"
 
+#include "../include/Player.hpp"
+#include "../src/Player.cpp"
+
+#include "../include/Bot.hpp"
+#include "../src/Bot.cpp"
+
 using namespace sf;
 
 /**
@@ -56,7 +62,7 @@ BOOST_AUTO_TEST_CASE( increaseSizeUnitTest1 )
     int size = 1234;
     int increase = 442;
     Unit u = Unit( 0.0, 0.0, size );
-    u.increaseMass( increase );
+    u.decreaseMass( increase );
     BOOST_CHECK_EQUAL( u.getMass(), size - increase );
 }
 
@@ -70,14 +76,14 @@ BOOST_AUTO_TEST_SUITE( testBoard )
 
 BOOST_AUTO_TEST_CASE( distanceTest1 )
 {
-    Cell cell(12.5, 31.22);
+    Cell cell(12.5, 31.22, 0, false);
     Unit unit(7.12, 49.2);
     BOOST_REQUIRE_CLOSE( cell.distance(unit), 18.767653, 0.0001);
 }
 
 BOOST_AUTO_TEST_CASE( distanceTest2 )
 {
-    Cell cell(122.123, 333.777);
+    Cell cell(122.123, 333.777, 50.0, true);
     Unit unit(122.123, 333.777);
     BOOST_REQUIRE_CLOSE( cell.distance(unit), 0, 0.0001);
 }

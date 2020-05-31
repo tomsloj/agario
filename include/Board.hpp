@@ -21,6 +21,7 @@ class Board
         
         Board();
         Board( sf::Vector2u size);
+        ~Board();
         void update( sf::Time time , Player *player);
         void addCell( Cell *cell);
         void addBot( Bot *bot);
