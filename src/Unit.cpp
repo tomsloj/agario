@@ -76,11 +76,18 @@ sf::Color Unit::getColor() const
 void Unit::draw( RenderWindow& window) 
 {
     setRadius( mass );
-    sprite->setOrigin(radius, radius);
-    sprite->setPosition(position);
-    sprite->setRadius(radius);
-    sprite->setFillColor(color);
-    window.draw(*sprite);
+    try
+    {
+        sprite->setOrigin(radius, radius);
+        sprite->setPosition(position);
+        sprite->setRadius(radius);
+        sprite->setFillColor(color);
+        window.draw(*sprite);
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "cannot draw shape: " << e.what() << "\n";
+    }
 }
 
 void Unit::setColor( Color color)
@@ -95,7 +102,6 @@ void Unit::setPosition( Vector2f position )
 
 void Unit::setRadius( int mass )
 {
-    //trzeba to zoptymalizowa 
     radius = sqrt(mass);
 }
 
