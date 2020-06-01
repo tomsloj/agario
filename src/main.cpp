@@ -1,7 +1,8 @@
+#include "GlobalValues.hpp"
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <Menu.hpp>
-#include "GlobalValues.hpp"
 
 using namespace sf;
 

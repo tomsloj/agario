@@ -1,8 +1,5 @@
 #include "../include/Menu.hpp"
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 using namespace sf;
 
 Menu::Menu()
@@ -45,7 +42,7 @@ void Menu::run( RenderWindow &window )
         {
             if(event.type == Event::Closed)
                 window.close();
-            //nacisnieto przycisk
+            //key pressed
             if(event.type == Event::KeyPressed)
             {
                 switch(event.key.code)
@@ -64,7 +61,7 @@ void Menu::run( RenderWindow &window )
                 }
             }
             else
-            if( event.type ==Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left )
+            if( event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left )
             {
                 Vector2i position = Mouse::getPosition(window);
 
@@ -121,11 +118,12 @@ void Menu::run( RenderWindow &window )
     
 }
 
+//run the action that is assigned to the choosen option
 void Menu::chooseOption( RenderWindow &window )
 {
     switch (chosenOption)
     {
-        //graj
+        //play
         case 0:
         {
             remove("bin/save");

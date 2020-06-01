@@ -1,8 +1,5 @@
 #include "../include/Settings.hpp"
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 using namespace sf;
 
 Settings::Settings()
@@ -47,7 +44,7 @@ void Settings::run( )
         {
             if(event.type == Event::Closed)
                 window.close();
-            //nacisnieto przycisk
+            //nkey pressed
             if(event.type == Event::KeyPressed)
             {
                 switch(event.key.code)
@@ -128,6 +125,7 @@ void Settings::run( )
     
 }
 
+//set level when user confirm choice
 void Settings::chooseOption()
 {
     level = chosenOption + 1;

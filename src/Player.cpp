@@ -1,12 +1,10 @@
 #include "../include/Player.hpp"
 
-#include <iostream>
-
 using namespace sf;
 
 Player::Player()
 {
-    //playerCells.push_back(Cell());
+
 }
 
 //create new player - one cell
@@ -25,6 +23,7 @@ Player::~Player()
     cells.clear();
 }
 
+//set color of every cell
 void Player::setColor( Color color )
 {
     for(auto cell: cells)

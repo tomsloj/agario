@@ -123,11 +123,13 @@ Game::~Game()
         delete player;
 }
 
+//find place to insert any unit
 Vector2f Game::findPlace()
 {
     return Vector2f( fRand(0.0, board->getSize().x), fRand(0.0, board->getSize().y));
 }
 
+//next step of game
 void Game::step( RenderWindow &window )
 {
     while( board->getFeedUnits().size() < MAX_NUMBER_OF_FEED_UNITS )
@@ -149,12 +151,14 @@ void Game::step( RenderWindow &window )
     board->draw(window);
 }
 
+//rand a number form the range fMin, fMax
 double Game::fRand( double fMin, double fMax )
 {
     double f = (double) rand() / RAND_MAX;
     return fMin + f * (fMax - fMin);
 }
 
+//save game to bin/save
 void Game::save()
 {
     ofstream myfile;
@@ -163,6 +167,7 @@ void Game::save()
     myfile.close();
 }
 
+//load game to bin/save
 bool Game::load()
 {
     ifstream myfile;

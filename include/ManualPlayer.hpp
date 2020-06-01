@@ -1,10 +1,10 @@
 #ifndef MANUAL_PLAYER_H
 #define MANUAL_PLAYER_H
 
-#include <cmath>
-
 #include "Player.hpp"
 #include "GlobalValues.hpp"
+
+#include <cmath>
 
 class ManualPlayer : public Player
 {

@@ -1,10 +1,5 @@
 #include "../include/Cell.hpp"
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
-
-
 using namespace sf;
 
 Cell::Cell()
@@ -66,13 +61,14 @@ double Cell::getSpeed()
     return speed;
 }
 
+//update state of cell (mechanism of hunger and position)
 void Cell::update()
 {
-    //mechanizm glodu
+    //mechanism of hunger
     --stepsToDecreaseMass;
     if( stepsToDecreaseMass <= 0 )
     {
-        if( mass > 1    )
+        if( mass > 1 )
             decreaseMass(1);
         stepsToDecreaseMass = calculateSteps();
     }
@@ -90,11 +86,13 @@ void Cell::update()
         position.y = gameWindowHeight - radius;
 }
 
+//calculate amont of steps to mechanism of hunger
 int Cell::calculateSteps()
 {
     return static_cast<int>(20000.0/static_cast<double>(mass));
 }
 
+//calculate distance from this cell to unit
 double Cell::distance(Unit &unit)
 {
     double x = position.x - unit.getPosition().x;
@@ -102,6 +100,7 @@ double Cell::distance(Unit &unit)
     return sqrt( x * x + y * y );
 }
 
+//calculate distance from this cell to another cell
 double Cell::distance(Cell &cell)
 {
     double x = position.x - cell.getPosition().x;
@@ -109,7 +108,7 @@ double Cell::distance(Cell &cell)
     return sqrt( x * x + y * y );
 }
 
-
+//increase mass of cell
 void Cell::grow(const int massOfGrowth)
 {
     Unit::grow(massOfGrowth);
@@ -126,9 +125,10 @@ bool Cell::isItPlayer()
     return isPlayer;
 }
 
+//divide cell if it is possible
 Cell *Cell::Division(sf::Vector2i mousePosition)
 {
-    static const double SPEED = 5.0;
+    static const double SPEED = basicSpeed;
 
 	Cell *newcell;
 	double tmpX;

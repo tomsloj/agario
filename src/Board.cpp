@@ -1,9 +1,4 @@
 #include "../include/Board.hpp"
-#include "../include/Cell.hpp"
-#include "../include/Unit.hpp"
-
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -18,7 +13,6 @@ Board::Board(Vector2u size)
 }
 Board::~Board()
 {
-    
     for( auto p : cells )
     {
         if( p != nullptr )
@@ -41,11 +35,12 @@ Board::~Board()
     
 }
 
+//update look of board and call cells to change positions
 void Board::update( Time time, Player *player )
 {
     std::vector<Cell*> cellsToDelete;
 
-    //sprawdzamy czy ktoras z komorek moze zjesc jakas kulke jedzenia
+    //check if cell can eat feedUnit
     for( vector<Cell*>::iterator cell = cells.begin(); cell != cells.end(); ++cell )
     {
 
@@ -202,15 +197,16 @@ void Board::setSize( Vector2u size )
     this->size = size;
 }
 
+//draw all cells and units on window
 void Board::draw( RenderWindow& window )
 {
-    //rysujemy komorki
+    //draw cells
     for( size_t i = 0; i < cells.size(); ++i )
     {
         cells[i]->draw(window);
     }
 
-    //rysujemy kulki jedzenia
+    //draw feed units
     for( size_t i = 0; i < feedUnits.size(); ++i )
     {
         feedUnits[i]->draw(window);

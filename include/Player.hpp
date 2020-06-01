@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Cell.hpp"
+
 #include <vector>
 
 class Player

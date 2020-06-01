@@ -1,14 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <fstream>
-
 #include "ManualPlayer.hpp"
 #include "Bot.hpp"
 #include "Player.hpp"
 #include "Board.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <fstream>
 
 
 class Game

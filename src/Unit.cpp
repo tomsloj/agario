@@ -13,7 +13,7 @@ Unit::Unit( double X, double Y, int mass /*= 1*/ )
     this->mass = mass;
     //radius = mass;
     sprite = new CircleShape();
-    color = Color(30, 144, 255); //domyslny kolor
+    color = Color(30, 144, 255); //default color
     setRadius( mass );
 }
 
@@ -23,7 +23,7 @@ Unit::Unit( Vector2f position, int mass /*= 1*/ )
     this->mass = mass;
     //radius = mass;
     sprite = new CircleShape();
-    color = Color(30, 144, 255); //domyslny kolor
+    color = Color(30, 144, 255); //default color
     setRadius( mass );
 }
 
@@ -35,11 +35,13 @@ Unit::~Unit()
     }
 }
 
+//increase mass of unit
 void Unit::grow(const int massOfGrowth)
 {
     mass += massOfGrowth;
 }
 
+//decrease mass of unit
 void Unit::decreaseMass( int massReduction /*= 1*/ )
 {
     mass -= massReduction;
@@ -70,6 +72,7 @@ sf::Color Unit::getColor() const
     return color;
 }
 
+//draw unit in window
 void Unit::draw( RenderWindow& window) 
 {
     setRadius( mass );

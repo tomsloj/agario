@@ -1,7 +1,5 @@
 #include "../include/ManualPlayer.hpp"
 
-#include <iostream>
-
 using namespace sf;
 
 ManualPlayer::ManualPlayer(double x, double y) : Player(x, y, 0, basicPlayerMass)
@@ -14,7 +12,7 @@ ManualPlayer::ManualPlayer( Cell* cell ) : Player( cell )
     setColor(Color::Red);
 }
 
-//przesyla informacje o pozycji myszki i aktualizuje pozycje gracza
+//gets information of actual mouse position and update position of player cells
 void ManualPlayer::setMousePosition(Vector2i position)
 {
     for(auto cell: cells)
@@ -31,6 +29,7 @@ void ManualPlayer::setMousePosition(Vector2i position)
     }
 }
 
+//divide cells of player
 std::vector<Cell*> ManualPlayer::Divide(Vector2i mousePosition)
 {
     std::vector<Cell *> newcells;
