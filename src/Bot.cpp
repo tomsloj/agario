@@ -6,7 +6,7 @@ using namespace sf;
 
 Bot::Bot()
 {
-    //botCells.push_back(Cell());
+    setColor(Color::Green);
 }
 
 //create new bot - one cell
@@ -110,25 +110,12 @@ void Bot::setNextPosition(std::vector<Unit*> feedUnits, std::vector<Cell*> cells
             }
         }
 
+        x = (x + cell->getDirection().x) / 2;
+        y = (y + cell->getDirection().y) / 2;
+        
         double length = sqrt(x*x + y*y);
 
-        x /= length;
-        y /= length;
-
-        /*
-        if(abs(x) < 1)
-        {
-            if(x < 0) x -= 1;
-            else if (x > 0) x += 1;          
-        }
-
-        if(abs(y) < 1)
-        {
-            if(y < 0) y -= 1;
-            else if (y > 0) y += 1;          
-        }
-        */
-        cell->setDirecction(((x + cell->getDirection().x) / 2), ((y + cell->getDirection().y) / 2) );
+        cell->setDirecction( x/length, y/length );
         cell->update();
     }
 }

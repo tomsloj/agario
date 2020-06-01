@@ -16,7 +16,7 @@ Cell::Cell( double X, double Y, double acc, bool isItPlayer, int mass /*= 1*/) :
 {
     acceleration = acc;
     isPlayer = isItPlayer;
-    speed = 5.0 / sqrt(radius/2) + acc;
+    speed = 3.0 / sqrt(radius/2) + acc;
     clock.restart();
     stepsToDecreaseMass = calculateSteps();
 }
@@ -51,6 +51,11 @@ void Cell::setDirecction(double x, double y)
 {
     xDirection = x;
     yDirection = y;
+}
+
+void Cell::setAsPlayer()
+{
+    isPlayer = true;
 }
 
 void Cell::update()
