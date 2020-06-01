@@ -10,3 +10,5 @@ int gameWindowWidth = 600;
 int gameWindowHeight = 600;
 
 int level = 1;
+
+int basicPlayerMass = 500;

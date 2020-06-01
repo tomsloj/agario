@@ -28,17 +28,14 @@ Cell::Cell( Vector2f position, double acc, bool isItPlayer, int mass /*= 1*/) : 
 
 Cell::~Cell()
 {
-    //std::cout << "usuwa" << std::endl;
 }
 
 
 void Cell::updateSpeed()
 {
     speed = 5.0 / sqrt(radius/2) + acceleration;
-
     if(acceleration > 0 && clock.getElapsedTime().asMilliseconds() > 0.1)
     {
-        //std::cout << clock.getElapsedTime().asMilliseconds() << std::endl;
         acceleration -= 0.1;
         speed = 1.0 / sqrt(radius/2) + acceleration;
         clock.restart();
@@ -56,6 +53,11 @@ void Cell::setDirecction(double x, double y)
 void Cell::setAsPlayer()
 {
     isPlayer = true;
+}
+
+void Cell::setAcceleration(double acc)
+{
+    acceleration = acc;
 }
 
 void Cell::update()

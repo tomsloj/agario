@@ -208,7 +208,6 @@ void Board::draw( RenderWindow& window )
     for( size_t i = 0; i < cells.size(); ++i )
     {
         cells[i]->draw(window);
-        //std::cout << cells[i]->getPosition().x << " " << cells[i]->getPosition().y << "\n";
     }
 
     //rysujemy kulki jedzenia
@@ -249,16 +248,16 @@ std::istream& operator>>(std::istream& stream, Board& board)
         bool isPlayer;
         stream >> isPlayer;
         Cell* cell = new Cell();
-        //board.cells.push_back(new Cell());
         stream >> *cell;
         if( isPlayer )
         {
-            board.addCell(cell);
             cell->setAsPlayer();
+            board.addCell(cell);
         }
         else
         {
             Bot* bot = new Bot(cell->getPosition().x, cell->getPosition().y);
+            bot->botCells[0]->setMass(cell->getMass());
             board.addCell(bot->botCells[0]);
             board.addBot(bot);
         }

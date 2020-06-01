@@ -32,18 +32,18 @@ Game::Game(RenderWindow &window)
         player = NULL;
         for( auto cell : board->getCells() )
         {
-                if( cell->isItPlayer() )
+            cell->setAcceleration(0);
+            if( cell->isItPlayer() )
+            {
+                if( !player )
                 {
-                    if( !player )
-                    {
-                        player = new ManualPlayer( board->getCells()[0] );
-                    }
-                    else
-                    {
-                        player->addCell(cell);
-                    }
-                    
+                    player = new ManualPlayer( cell );
                 }
+                else
+                {
+                    player->addCell(cell);
+                }  
+            }
         }
         remove("bin/save");
     }
@@ -76,11 +76,8 @@ Game::Game(RenderWindow &window)
                         return;
                         break;
                     case Keyboard::Space:
-                        //tmp.assign( player->Divide(sf::Mouse::getPosition(window)) );
-
-                        for(auto cell : player->Divide(sf::Mouse::getPosition(window))) board->addCell(cell);
-                        //board->addCell(player->Divide(sf::Mouse::getPosition(window))[0]);
-                        //players.insert(players.end(),  player->Divide(sf::Mouse::getPosition(window)) );
+                        for(auto cell : player->Divide(sf::Mouse::getPosition(window)))
+                            board->addCell(cell);
                         break;
                     default:
                         break;
@@ -124,8 +121,6 @@ Game::~Game()
     tmp.clear();
     if( board != NULL )
         delete board;
-    if( bot != NULL )
-        delete bot;
     if( player != NULL )
         delete player;
 }
@@ -152,8 +147,6 @@ void Game::step( RenderWindow &window )
 {
     while( board->getFeedUnits().size() < MAX_NUMBER_OF_FEED_UNITS )
         board->addFeedUnit(new Unit(findPlace(), 1));
-
-    //TODO sprawdzenie i uzupelnienie liczby graczy
 
     while( board->getCells().size() < MAX_NUMBER_OF_PLAYERS )
     {
@@ -199,5 +192,4 @@ bool Game::load()
 void Game::gameOver(RenderWindow &window)
 {
     window.clear(sf::Color::Black);
-    //sleep(sf::milliseconds(200));
 }

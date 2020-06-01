@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-ManualPlayer::ManualPlayer(double x, double y) : Player(x, y, 0, 500)
+ManualPlayer::ManualPlayer(double x, double y) : Player(x, y, 0, basicPlayerMass)
 {
     setColor(Color::Red);
 }
@@ -25,10 +25,13 @@ void ManualPlayer::setMousePosition(Vector2i position)
         double length = sqrt(x*x + y*y);
         x /= length;
         y /= length;
-
+        std::cout << cell->getPosition().x << " " << cell->getPosition().y << " " << length << std::endl;
+        std::cout << x << " " << y << " " << length << std::endl;
         cell->setDirecction(x, y);
         cell->update();
+        std::cout << cell->getPosition().x << " " << cell->getPosition().y << " " << length << std::endl;
     }
+    std::cout << "\n";
 }
 
 std::vector<Cell*> ManualPlayer::Divide(Vector2i mousePosition)

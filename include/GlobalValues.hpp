@@ -8,3 +8,5 @@ extern int gameWindowWidth;
 extern int gameWindowHeight;
 
 extern int level;
+
+extern int basicPlayerMass;

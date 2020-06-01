@@ -3,7 +3,6 @@
 
 #include "Unit.hpp"
 #include "GlobalValues.hpp"
-//#include "Player.hpp"
 
 #include <cmath>
 #include <SFML/Graphics.hpp>
@@ -27,12 +26,12 @@ class Cell : public Unit
         void updateSpeed();
         void setDirecction(double x, double y);
         void setAsPlayer();
+        void setAcceleration(double acc);
         void update();
         int calculateSteps();
         double distance(Unit &unit);
         double distance(Cell &cell);
         void grow(const int massOfGrowth);
-        void setMass (int newMass);
 
         bool isItPlayer();
 

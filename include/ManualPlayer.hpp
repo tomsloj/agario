@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "Player.hpp"
+#include "GlobalValues.hpp"
 
 class ManualPlayer : public Player
 {
