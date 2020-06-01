@@ -29,7 +29,23 @@ Game::Game(RenderWindow &window)
     }
     else
     {
-        player = new ManualPlayer( board->getCells()[0] );
+        player = NULL;
+        for( auto cell : board->getCells() )
+        {
+                if( cell->isItPlayer() )
+                {
+                    if( !player )
+                    {
+                        player = new ManualPlayer( board->getCells()[0] );
+                    }
+                    else
+                    {
+                        player->addCell(cell);
+                    }
+                    
+                }
+        }
+        remove("bin/save");
     }
     
         
@@ -83,7 +99,6 @@ Game::Game(RenderWindow &window)
         {
             maxRadius = max( maxRadius, cell->getRadius());
         }
-        cout << maxRadius << " " << player->cells.size() << "\n";
 
         if( player->cells.size() == 0 || maxRadius >= min(gameWindowHeight, gameWindowWidth) / 3 || maxRadius == 0 )
         {

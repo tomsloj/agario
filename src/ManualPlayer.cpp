@@ -44,9 +44,10 @@ std::vector<Cell*> ManualPlayer::Divide(Vector2i mousePosition)
 	}
 
 	for(auto cell : newcells)
+    {
+        cell->setAsPlayer();
 		cells.push_back(cell);
-
-        std::cout << cells.size() << std::endl;
+    }
 
 	return newcells;
 }

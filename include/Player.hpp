@@ -19,6 +19,7 @@ class Player
         void setColor( sf::Color color);
         void draw( sf::RenderWindow& window);
 
+        void addCell(Cell* cell);
         void removeCell(Cell* cell);
 };
 

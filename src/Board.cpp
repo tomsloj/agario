@@ -121,9 +121,6 @@ void Board::update( Time time, Player *player )
     for( auto cell : cellsToDelete )
     {
         deleteCell(cell);
-        if( cell != NULL )
-            delete cell;
-        cell = NULL;
     }    
             
     for( auto bot : bots)
@@ -154,6 +151,9 @@ void Board::deleteCell(Cell *cell)
         if( *it == cell )
         {
             cells.erase(it);
+            if( cell != NULL )
+                delete cell;
+            cell = NULL;
             break;
         }
     }
@@ -208,6 +208,7 @@ void Board::draw( RenderWindow& window )
     for( size_t i = 0; i < cells.size(); ++i )
     {
         cells[i]->draw(window);
+        //std::cout << cells[i]->getPosition().x << " " << cells[i]->getPosition().y << "\n";
     }
 
     //rysujemy kulki jedzenia
@@ -224,6 +225,7 @@ std::ostream& operator<<(std::ostream& stream, const Board& board)
     stream << board.cells.size() << "\n";
     for( unsigned int i = 0; i < board.cells.size(); ++i )
     {
+        stream << board.cells[i]->isItPlayer() << "\n";
         stream << *board.cells[i] << "\n";
     }
     stream << board.feedUnits.size() << "\n";
@@ -244,8 +246,22 @@ std::istream& operator>>(std::istream& stream, Board& board)
     stream >> cellsSize;
     for( unsigned int i = 0; i < cellsSize; ++i )
     {
-        board.cells.push_back(new Cell());
-        stream >> *board.cells[i];
+        bool isPlayer;
+        stream >> isPlayer;
+        Cell* cell = new Cell();
+        //board.cells.push_back(new Cell());
+        stream >> *cell;
+        if( isPlayer )
+        {
+            board.addCell(cell);
+            cell->setAsPlayer();
+        }
+        else
+        {
+            Bot* bot = new Bot(cell->getPosition().x, cell->getPosition().y);
+            board.addCell(bot->botCells[0]);
+            board.addBot(bot);
+        }
     }
 
     unsigned int feedUnitsSize;

@@ -37,6 +37,11 @@ void Player::draw( RenderWindow& window)
         cell->Unit::draw(window);
 }
 
+void Player::addCell(Cell* cell)
+{
+    cells.push_back(cell);
+}
+
 void Player::removeCell(Cell* cell)
 {
     for( std::vector<Cell*>::iterator it = cells.begin(); it != cells.end(); ++it )

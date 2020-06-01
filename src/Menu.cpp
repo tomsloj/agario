@@ -10,13 +10,6 @@ Menu::Menu()
     chosenOption = 0;
 }
 
-/*
-Menu::Menu(int &window)
-{
-    int w = window;
-    
-}
-*/
 void Menu::run( RenderWindow &window ) 
 {
     Event event;
@@ -67,8 +60,7 @@ void Menu::run( RenderWindow &window )
                         
                         chooseOption( window );
                     default:
-                        break;
-                    
+                        break;  
                 }
             }
             else
@@ -95,7 +87,6 @@ void Menu::run( RenderWindow &window )
                         chosenOption = 2;
                         chooseOption( window );
                     }
-                    
                 }
             }
         }
@@ -132,13 +123,11 @@ void Menu::run( RenderWindow &window )
 
 void Menu::chooseOption( RenderWindow &window )
 {
-    std::cout << chosenOption << "\n";
     switch (chosenOption)
     {
         //graj
         case 0:
         {
-            std::cout << "graj" << "\n";
             remove("bin/save");
             Game game(window);
             

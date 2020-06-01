@@ -8,3 +8,5 @@ double shootBreaking = 50.0;
 
 int gameWindowWidth = 600;
 int gameWindowHeight = 600;
+
+int level = 1;

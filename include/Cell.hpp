@@ -26,6 +26,7 @@ class Cell : public Unit
         ~Cell();
         void updateSpeed();
         void setDirecction(double x, double y);
+        void setAsPlayer();
         void update();
         int calculateSteps();
         double distance(Unit &unit);

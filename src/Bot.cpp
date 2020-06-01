@@ -10,9 +10,9 @@ Bot::Bot()
 }
 
 //create new bot - one cell
-Bot::Bot(double x, double y) /*: Player (x, y, 0, rand()%100 )*/
+Bot::Bot(double x, double y)
 {
-    botCells.push_back(new Cell(x, y, 0, false, rand()%100 + 2));
+    botCells.push_back(new Cell(x, y, 0, false, rand()%( 60 * level) + 2));
     setColor(Color::Green);
 }
 
