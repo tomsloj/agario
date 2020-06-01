@@ -14,6 +14,7 @@ ManualPlayer::ManualPlayer( Cell* cell ) : Player( cell )
     setColor(Color::Red);
 }
 
+//przesyla informacje o pozycji myszki i aktualizuje pozycje gracza
 void ManualPlayer::setMousePosition(Vector2i position)
 {
     for(auto cell: cells)
@@ -36,7 +37,7 @@ std::vector<Cell*> ManualPlayer::Divide(Vector2i mousePosition)
 
 	for (std::vector<Cell *>::iterator it = cells.begin(); it != cells.end(); ++it)
 	{
-		if ((*it)->getMass() > 1)
+		if ((*it)->getMass() > 50)
 		{
 			newcells.push_back((*it)->Division(mousePosition));
 		}

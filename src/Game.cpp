@@ -8,8 +8,8 @@
 using namespace sf;
 using namespace std;
 
-const int MAX_NUMBER_OF_PLAYERS = 60;
-const int MAX_NUMBER_OF_FEED_UNITS = 900;
+const int MAX_NUMBER_OF_PLAYERS = 70;
+const int MAX_NUMBER_OF_FEED_UNITS = 1000;
 
 Game::Game()
 {
@@ -18,10 +18,11 @@ Game::Game()
 Game::Game(RenderWindow &window)
 {
     srand( time( NULL ) );
-    //window.setSize(Vector2u(gameWindowWidth, gameWindowHeight));
     window.setFramerateLimit(FPSNumber);
     Vector2u size = window.getSize();
     board = new Board(size);
+
+    //probojemy wczytac zapis
     if ( !load() )
     {
         player = new ManualPlayer(size.x/2, size.y/2);
@@ -29,6 +30,7 @@ Game::Game(RenderWindow &window)
     }
     else
     {
+        //laczymy wszystkie kulki gracza z graczem
         player = NULL;
         for( auto cell : board->getCells() )
         {
@@ -66,6 +68,7 @@ Game::Game(RenderWindow &window)
             {
                 switch( e.key.code )
                 {
+                    //przejscie do menu
                     case Keyboard::M:
                         save();
                         window.clear();
@@ -87,6 +90,7 @@ Game::Game(RenderWindow &window)
         step(window);
         window.display();
 
+        //sprawdzamy czy gracz przegral
         double maxRadius = 0;
         for( auto cell: player->cells )
         {
@@ -97,10 +101,8 @@ Game::Game(RenderWindow &window)
         {
             gameOver(window);
             break;
-        }
-        
+        } 
     }
-    
     
 }
 
@@ -119,11 +121,6 @@ Game::~Game()
         delete board;
     if( player != NULL )
         delete player;
-}
-
-void Game::createPlayer()
-{
-    //players.push_back(Player());
 }
 
 Vector2f Game::findPlace()
