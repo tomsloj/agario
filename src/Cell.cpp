@@ -16,7 +16,7 @@ Cell::Cell( double X, double Y, double acc, bool isItPlayer, int mass /*= 1*/) :
 {
     acceleration = acc;
     isPlayer = isItPlayer;
-    speed = 3.0 / sqrt(radius/2) + acc;
+    speed = basicSpeed / sqrt(radius/2) + acc;
     clock.restart();
     stepsToDecreaseMass = calculateSteps();
 }
@@ -33,11 +33,12 @@ Cell::~Cell()
 
 void Cell::updateSpeed()
 {
-    speed = 3.0 / sqrt(radius/2) + acceleration;
+    speed = basicSpeed / sqrt(radius/2) + acceleration;
+    //redukcja przyspieszenia
     if(acceleration > 0 && clock.getElapsedTime().asMilliseconds() > 0.1)
     {
         acceleration -= 0.1;
-        speed = 3.0 / sqrt(radius/2) + acceleration;
+        speed = basicSpeed / sqrt(radius/2) + acceleration;
         clock.restart();
         updateSpeed();
     }
@@ -67,6 +68,7 @@ double Cell::getSpeed()
 
 void Cell::update()
 {
+    //mechanizm glodu
     --stepsToDecreaseMass;
     if( stepsToDecreaseMass <= 0 )
     {
@@ -74,6 +76,7 @@ void Cell::update()
             decreaseMass(1);
         stepsToDecreaseMass = calculateSteps();
     }
+
     updateSpeed();
     position.x += xDirection*speed;
     position.y += yDirection*speed;
@@ -133,15 +136,12 @@ Cell *Cell::Division(sf::Vector2i mousePosition)
 	int newMass;
 
     sf::Vector2f position = Unit::getPosition();
-	//Vector2i mouseposition = player->GetMousePosition(window);
 	double cosalpha, sinalpha;
 	cosalpha = (mousePosition.x - position.x) / sqrt((mousePosition.x - position.x) * (mousePosition.x - position.x) + (mousePosition.y - position.y) * (mousePosition.y - position.y));
 	sinalpha = (mousePosition.y - position.y) / sqrt((mousePosition.x - position.x) * (mousePosition.x - position.x) + (mousePosition.y - position.y) * (mousePosition.y - position.y));
 	tmpX = (position.x + cosalpha*(1.5*Unit::getRadius()));
 	tmpY = (position.y + sinalpha*(1.5*Unit::getRadius()));
 
-    //tmpX = mousePosition.x;
-    //tmpY = mousePosition.y;
 
     newMass = Unit::getMass() / 2;
     Unit::setMass(newMass);

@@ -92,7 +92,7 @@ Game::Game(RenderWindow &window)
 
         //sprawdzamy czy gracz przegral
         double maxRadius = 0;
-        for( auto cell: player->cells )
+        for( auto cell: board->getCells() )
         {
             maxRadius = max( maxRadius, cell->getRadius());
         }
