@@ -118,7 +118,7 @@ void Settings::run( )
             break;
         }
 
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color(10, 10, 10));
         window.draw(settingsTextEasy);
         window.draw(settingsTextMedium);
         window.draw(settingsTextHard);

@@ -1,8 +1,5 @@
 #include "../include/Unit.hpp"
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 using namespace sf;
 
 Unit::Unit(  )

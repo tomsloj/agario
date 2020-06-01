@@ -7,15 +7,10 @@ using namespace sf;
 
 int main()
 {
-    std::cout<<FPSNumber<< "\n";
-    std::cout<<"Hello\n";
     RenderWindow window(VideoMode(gameWindowWidth, gameWindowHeight),"Agario");
     
-    //int a = 300;
     Menu menu;
-    //menu.addWindow(window);
     menu.run(window);
-    
 
     return 0;
 }

@@ -27,6 +27,7 @@ class Cell : public Unit
         void setDirecction(double x, double y);
         void setAsPlayer();
         void setAcceleration(double acc);
+        double getSpeed();
         void update();
         int calculateSteps();
         double distance(Unit &unit);

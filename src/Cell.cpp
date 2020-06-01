@@ -33,11 +33,11 @@ Cell::~Cell()
 
 void Cell::updateSpeed()
 {
-    speed = 5.0 / sqrt(radius/2) + acceleration;
+    speed = 3.0 / sqrt(radius/2) + acceleration;
     if(acceleration > 0 && clock.getElapsedTime().asMilliseconds() > 0.1)
     {
         acceleration -= 0.1;
-        speed = 1.0 / sqrt(radius/2) + acceleration;
+        speed = 3.0 / sqrt(radius/2) + acceleration;
         clock.restart();
         updateSpeed();
     }
@@ -58,6 +58,11 @@ void Cell::setAsPlayer()
 void Cell::setAcceleration(double acc)
 {
     acceleration = acc;
+}
+
+double Cell::getSpeed()
+{
+    return speed;
 }
 
 void Cell::update()

@@ -48,10 +48,6 @@ Game::Game(RenderWindow &window)
         remove("bin/save");
     }
     
-        
-    std::cout << window.getSize().x << " " << window.getSize().y << "\n";
-    
-    std::cout<<"Game Window\n";
     window.clear();
     window.display();
     
@@ -128,14 +124,6 @@ Game::~Game()
 void Game::createPlayer()
 {
     //players.push_back(Player());
-}
-
-Vector2f Game::findEmptyPlace(double radius)
-{
-    //TODO sprawdzenie czy nie trafilismy w zajete miejsce
-    Vector2f place = findPlace();
-
-    return place;
 }
 
 Vector2f Game::findPlace()
