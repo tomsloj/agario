@@ -6,3 +6,5 @@ extern double shootBreaking;
 
 extern int gameWindowWidth;
 extern int gameWindowHeight;
+
+extern int level;

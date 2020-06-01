@@ -1,7 +1,5 @@
 #include "../include/Menu.hpp"
 
-#include "../include/Game.hpp"
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -10,7 +8,6 @@ using namespace sf;
 Menu::Menu()
 {
     chosenOption = 0;
-    std::cout<<"MENU\n";
 }
 
 /*
@@ -22,13 +19,11 @@ Menu::Menu(int &window)
 */
 void Menu::run( RenderWindow &window ) 
 {
-    std::cout<<"RUN\n";
     Event event;
     Font font;
     Text menuTextPlay;
     Text menuTextLoad;
     Text menuTextSettings;
-    Text menuTextScores;
 
     if (!font.loadFromFile("assets/arial.ttf"))
 	{
@@ -50,11 +45,6 @@ void Menu::run( RenderWindow &window )
     menuTextSettings.setString("Settings");
     menuTextSettings.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowWidth * 6 / 12)});
 
-    menuTextScores.setFont(font);
-    menuTextScores.setCharacterSize(20);
-    menuTextScores.setString("High scores");
-    menuTextScores.setPosition({static_cast<float>(gameWindowWidth * 5 / 11), static_cast<float>(gameWindowWidth * 7 / 12)});
-    
 
     while (window.isOpen())
     {
@@ -68,10 +58,10 @@ void Menu::run( RenderWindow &window )
                 switch(event.key.code)
                 {
                     case Keyboard::Down:
-                        chosenOption = (chosenOption + 1) % 4;
+                        chosenOption = (chosenOption + 1) % 3;
                         break;
                     case Keyboard::Up:
-                        chosenOption = (((chosenOption - 1) % 4) + 4) % 4;
+                        chosenOption = (((chosenOption - 1) % 3) + 3) % 3;
                         break;
                     case Keyboard::Return:
                         
@@ -105,12 +95,6 @@ void Menu::run( RenderWindow &window )
                         chosenOption = 2;
                         chooseOption( window );
                     }
-                    else
-                    if( position.y > gameWindowHeight * 7 / 12 && position.y < gameWindowHeight * 19 / 30 )
-                    {
-                        chosenOption = 3;
-                        chooseOption( window );
-                    }
                     
                 }
             }
@@ -121,25 +105,16 @@ void Menu::run( RenderWindow &window )
             menuTextPlay.setFillColor(checked);
             menuTextLoad.setFillColor(unchecked);
             menuTextSettings.setFillColor(unchecked);
-            menuTextScores.setFillColor(unchecked);
             break;
         case 1:
             menuTextPlay.setFillColor(unchecked);
             menuTextLoad.setFillColor(checked);
             menuTextSettings.setFillColor(unchecked);
-            menuTextScores.setFillColor(unchecked);
             break;
         case 2:
             menuTextPlay.setFillColor(unchecked);
             menuTextLoad.setFillColor(unchecked);
             menuTextSettings.setFillColor(checked);
-            menuTextScores.setFillColor(unchecked);
-            break;
-        case 3:
-            menuTextPlay.setFillColor(unchecked);
-            menuTextLoad.setFillColor(unchecked);
-            menuTextSettings.setFillColor(unchecked);
-            menuTextScores.setFillColor(checked);
             break;
         default:
             break;
@@ -149,7 +124,6 @@ void Menu::run( RenderWindow &window )
         window.draw(menuTextPlay);
         window.draw(menuTextLoad);
         window.draw(menuTextSettings);
-        window.draw(menuTextScores);
         window.display();
         
     }
@@ -173,8 +147,14 @@ void Menu::chooseOption( RenderWindow &window )
         case 1:
         {
             Game game(window);
-        }
             break;
+        }
+        case 2:
+        {
+            Settings settings;
+            settings.run();
+            break;
+        }
         default:
             break;
     }

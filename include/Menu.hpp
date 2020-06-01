@@ -1,6 +1,9 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "Game.hpp"
+#include "Settings.hpp"
+
 #include <SFML/Graphics.hpp>
 
 class Menu
