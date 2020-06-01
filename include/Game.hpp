@@ -5,6 +5,8 @@
 #include "Bot.hpp"
 #include "Player.hpp"
 #include "Board.hpp"
+#include "Unit.hpp"
+#include "GlobalValues.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <vector>

@@ -1,9 +1,4 @@
 #include "../include/Game.hpp"
-#include "../include/Unit.hpp"
-#include "../include/GlobalValues.hpp"
-
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -22,7 +17,7 @@ Game::Game(RenderWindow &window)
     Vector2u size = window.getSize();
     board = new Board(size);
 
-    //probojemy wczytac zapis
+    //try to load game
     if ( !load() )
     {
         player = new ManualPlayer(size.x/2, size.y/2);
@@ -30,7 +25,7 @@ Game::Game(RenderWindow &window)
     }
     else
     {
-        //laczymy wszystkie kulki gracza z graczem
+        //connect players cells with manual player
         player = NULL;
         for( auto cell : board->getCells() )
         {
@@ -68,7 +63,7 @@ Game::Game(RenderWindow &window)
             {
                 switch( e.key.code )
                 {
-                    //przejscie do menu
+                    //go to menu
                     case Keyboard::M:
                         save();
                         window.clear();
@@ -90,7 +85,7 @@ Game::Game(RenderWindow &window)
         step(window);
         window.display();
 
-        //sprawdzamy czy gracz przegral
+        //check if game is over
         double maxRadius = 0;
         for( auto cell: board->getCells() )
         {
