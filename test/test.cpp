@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE( updateSpeedTest1 )
     Cell cell(122.123, 333.777, 0, true);
     cell.updateSpeed();
 
-    BOOST_REQUIRE_CLOSE( cell.getSpeed(), basicSpeed / sqrt(cell.getRadius()/2), 0.0001);
+    BOOST_REQUIRE_CLOSE( cell.getSpeed(), ( basicSpeed + (0.1 * basicSpeed) * (2 - level) )/ sqrt(cell.getRadius()/2), 0.0001);
 }
 
 BOOST_AUTO_TEST_CASE( updateSpeedTest2 )
@@ -143,10 +143,10 @@ BOOST_AUTO_TEST_CASE( updateSpeedTest2 )
     Cell cell(122.123, 333.777, 2.0, true);
     cell.updateSpeed();
 
-    BOOST_REQUIRE_CLOSE( cell.getSpeed(), basicSpeed / sqrt(cell.getRadius()/2) + 2.0, 0.0001 );
+    BOOST_REQUIRE_CLOSE( cell.getSpeed(), ( basicSpeed + (0.1 * basicSpeed) * (2 - level) ) / sqrt(cell.getRadius()/2) + 2.0, 0.0001 );
     sleep(sf::milliseconds(2));
     cell.updateSpeed();
-    BOOST_REQUIRE_CLOSE( cell.getSpeed(), basicSpeed / sqrt(cell.getRadius()/2) + 2.0 - 0.1, 0.0001 );
+    BOOST_REQUIRE_CLOSE( cell.getSpeed(), ( basicSpeed + (0.1 * basicSpeed) * (2 - level) ) / sqrt(cell.getRadius()/2) + 2.0 - 0.1, 0.0001 );
 }
 
 BOOST_AUTO_TEST_CASE( updateTest1 )

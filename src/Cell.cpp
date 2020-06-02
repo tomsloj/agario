@@ -11,7 +11,12 @@ Cell::Cell( double X, double Y, double acc, bool isItPlayer, int mass /*= 1*/) :
 {
     acceleration = acc;
     isPlayer = isItPlayer;
-    speed = basicSpeed / sqrt(radius/2) + acc;
+    //set speed dependent of level
+    if(isPlayer)
+        speed = ( basicSpeed + (0.1 * basicSpeed) * (2 - level) ) / sqrt(radius/2) + acc;
+    else
+        speed = ( basicSpeed + (0.1 * basicSpeed) * (level - 2) ) / sqrt(radius/2) + acc;
+    
     clock.restart();
     stepsToDecreaseMass = calculateSteps();
 }
@@ -28,8 +33,12 @@ Cell::~Cell()
 
 void Cell::updateSpeed()
 {
-    speed = basicSpeed / sqrt(radius/2) + acceleration;
-    //redukcja przyspieszenia
+    //set speed dependent of level
+    if(isPlayer)
+        speed = ( basicSpeed + (0.1 * basicSpeed) * (2 - level) ) / sqrt(radius/2) + acceleration;
+    else
+        speed = ( basicSpeed + (0.1 * basicSpeed) * (level - 2) ) / sqrt(radius/2) + acceleration;
+    //reduce acceleration
     if(acceleration > 0 && clock.getElapsedTime().asMilliseconds() > 0.1)
     {
         acceleration -= 0.1;
