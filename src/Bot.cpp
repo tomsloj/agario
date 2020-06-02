@@ -30,18 +30,18 @@ Bot::~Bot()
 void Bot::setNextPosition(std::vector<Unit*> feedUnits, std::vector<Cell*> cells)
 {
     double length = 10000;
-    double x;
-    double y;
+    double x = 0;
+    double y = 0;
 
     double prioryty; // priority = 1 / dostance to smaller - 1 / distance to bigger
     double tmpBiggestSamller;
     double tmpNearestBiggerSize;
     double nearestBigger;
     double nearestSmaller;
-    double xSecondCellBigger;
-    double ySecondCellBigger;
-    double xSecondCellSmaller;
-    double ySecondCellSmaller;
+    double xSecondCellBigger = 0;
+    double ySecondCellBigger = 0;
+    double xSecondCellSmaller = 20000;
+    double ySecondCellSmaller = 20000;
 
     for(auto cell: botCells)
     {

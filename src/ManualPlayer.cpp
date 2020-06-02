@@ -30,7 +30,7 @@ void ManualPlayer::setMousePosition(Vector2i position)
 }
 
 //divide cells of player
-std::vector<Cell*> ManualPlayer::Divide(Vector2i mousePosition)
+std::vector<Cell*> ManualPlayer::divide(Vector2i mousePosition)
 {
     std::vector<Cell *> newcells;
 

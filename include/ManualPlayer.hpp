@@ -15,7 +15,7 @@ class ManualPlayer : public Player
         ManualPlayer(Cell* cell);
         void setMousePosition(sf::Vector2i position);
 
-        std::vector<Cell*> Divide(sf::Vector2i mousePosition);
+        std::vector<Cell*> divide(sf::Vector2i mousePosition);
 };
 
 #endif 

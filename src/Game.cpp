@@ -70,7 +70,7 @@ Game::Game(RenderWindow &window)
                         return;
                         break;
                     case Keyboard::Space:
-                        for(auto cell : player->Divide(sf::Mouse::getPosition(window)))
+                        for(auto cell : player->divide(sf::Mouse::getPosition(window)))
                             board->addCell(cell);
                         break;
                     default:

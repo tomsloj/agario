@@ -1,5 +1,5 @@
 Wymagane biblioteki:
-SFML
+SFML 2.4.0 lub nowsza
 boost/test
 instalacja potrzebnych bibliotek jest mozliwa po uruchomieniu skryptu libs.sh
 

@@ -130,6 +130,13 @@ BOOST_AUTO_TEST_CASE( distanceTest2 )
     BOOST_REQUIRE_CLOSE( cell.distance(unit), 0, 0.0001);
 }
 
+BOOST_AUTO_TEST_CASE( distanceTest3 )
+{
+    Cell cell(12.5, 31.22, 0, false);
+    Cell cell2(7.12, 49.2, 1, true);
+    BOOST_REQUIRE_CLOSE( cell.distance(cell2), 18.767653, 0.0001);
+}
+
 BOOST_AUTO_TEST_CASE( updateSpeedTest1 )
 {
     Cell cell(122.123, 333.777, 0, true);
@@ -190,6 +197,31 @@ BOOST_AUTO_TEST_CASE( updateTest2 )
 
     BOOST_REQUIRE_CLOSE( cell.getPosition().x, gameWindowWidth - radius, 0.0001 );
     BOOST_REQUIRE_CLOSE( cell.getPosition().y, gameWindowHeight - radius, 0.0001 );
+}
+
+BOOST_AUTO_TEST_CASE( updateTest3 )
+{
+    double x = 0;
+    double y = 0;
+    double xDirection = -1;
+    double yDirection = -1;
+    Cell cell(x, y, 2.0, true);
+
+    int mass = 700;
+    cell.setMass(mass);
+    cell.setRadius(mass);
+
+    double radius = cell.getRadius();
+    cell.setPosition(sf::Vector2f(radius, radius));
+    cell.setDirecction(xDirection, yDirection);
+
+    cell.updateSpeed();
+    double speed = cell.getSpeed();
+
+    cell.update();
+
+    BOOST_REQUIRE_CLOSE( cell.getPosition().x, radius, 0.0001 );
+    BOOST_REQUIRE_CLOSE( cell.getPosition().y, radius, 0.0001 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -343,6 +375,59 @@ BOOST_AUTO_TEST_CASE( removeCellSizeTest1 )
     BOOST_CHECK_EQUAL( p.cells.size(), 2 );
     p.removeCell(c1);
     BOOST_CHECK_EQUAL( p.cells.size(), 1 );
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+/**
+ * testy klasy ManualPlayer
+ */
+
+BOOST_AUTO_TEST_SUITE( testPlayer )
+
+BOOST_AUTO_TEST_CASE( setMousePositionTest1 )
+{
+    double posX = 92.2;
+    double posY = 123.1;
+    ManualPlayer p(posX, posY);
+
+    double x = 321.9;
+    double y = 422;
+
+    p.setMousePosition(sf::Vector2i(x, y));
+
+    double newX = p.cells[0]->getPosition().x;
+    double newY = p.cells[0]->getPosition().y;
+
+    //check direction
+    BOOST_REQUIRE_CLOSE( newX / newY, x / y, 5 );
+
+    //chech if distance is smaller
+    BOOST_CHECK_LT( (newX - posX) * (newX - posX) + (newY - posY) * (newY - posY), (x- posX) * (x - posX) + (y - posY) * (y - posY) );
+}
+
+BOOST_AUTO_TEST_CASE( divideTest1 )
+{
+    double posX = 92.2;
+    double posY = 123.1;
+    ManualPlayer p(posX, posY);
+
+    double x = 321.9;
+    double y = 422;
+
+    p.divide(sf::Vector2i(x, y));
+
+    double newX = p.cells[1]->getPosition().x;
+    double newY = p.cells[1]->getPosition().y;
+
+    BOOST_CHECK_EQUAL(p.cells.size(), 2);
+
+    //check place of new cell
+    //check direction
+    BOOST_REQUIRE_CLOSE( newX / newY, x / y, 5 );
+
+    //chech if distance is smaller
+    BOOST_CHECK_LT( (newX - posX) * (newX - posX) + (newY - posY) * (newY - posY), (x- posX) * (x - posX) + (y - posY) * (y - posY) );
 }
 
 BOOST_AUTO_TEST_SUITE_END()
