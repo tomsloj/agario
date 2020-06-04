@@ -11,9 +11,6 @@
 #include "../include/Cell.hpp"
 #include "../src/Cell.cpp"
 
-#include "../include/Board.hpp"
-#include "../src/Board.cpp"
-
 #include "../include/Player.hpp"
 #include "../src/Player.cpp"
 
@@ -23,12 +20,18 @@
 #include "../include/Bot.hpp"
 #include "../src/Bot.cpp"
 
+#include "../include/Game.hpp"
+#include "../src/Game.cpp"
+
+#include "../include/Board.hpp"
+#include "../src/Board.cpp"
+
 #include "../include/GlobalValues.hpp"
 
 using namespace sf;
 
 /**
- * testy klasy Unit 
+ * tests to class Unit 
  */
 BOOST_AUTO_TEST_SUITE( testUnit )
 
@@ -111,7 +114,7 @@ BOOST_AUTO_TEST_CASE( streamOperatorsUnitTest1 )
 BOOST_AUTO_TEST_SUITE_END()
 
 /**
- * testy klasy Cell
+ * tests to class Cell
  */
 
 BOOST_AUTO_TEST_SUITE( testBoard )
@@ -227,121 +230,7 @@ BOOST_AUTO_TEST_CASE( updateTest3 )
 BOOST_AUTO_TEST_SUITE_END()
 
 /**
- * testy klasy Board
- */
-
-BOOST_AUTO_TEST_SUITE( testBoard )
-
-BOOST_AUTO_TEST_CASE( addCellsSizeTest1 )
-{
-    Board board( Vector2u(100, 200));
-    int number = 13;
-    BOOST_CHECK_EQUAL( board.getCells().size(), 0 );
-    for ( int i = 0; i < number; ++i )
-    {
-        Cell *cell = new Cell();
-        board.addCell(cell);
-    }
-    BOOST_CHECK_EQUAL( board.getCells().size(), number );
-    
-}
-
-BOOST_AUTO_TEST_CASE( addCellsDataTest1 )
-{
-    Board board( Vector2u(150, 30));
-    
-    Cell *cell1 = new Cell();
-    board.addCell(cell1);
-
-    Cell *cell2 = new Cell();
-    board.addCell(cell2);
-
-    Cell *cell3 = new Cell();
-    board.addCell(cell3);
-
-    BOOST_CHECK_EQUAL( board.getCells().size(), 3 );
-    BOOST_CHECK_EQUAL( board.getCells()[0], cell1 );
-    BOOST_CHECK_EQUAL( board.getCells()[1], cell2 );
-    BOOST_CHECK_EQUAL( board.getCells()[2], cell3 ); 
-}
-
-BOOST_AUTO_TEST_CASE( deleteCellsDataTest1 )
-{
-    Board board( Vector2u(150, 30));
-    
-    Cell *cell1 = new Cell();
-    board.addCell(cell1);
-
-    Cell *cell2 = new Cell();
-    board.addCell(cell2);
-
-    Cell *cell3 = new Cell();
-    board.addCell(cell3);
-
-    board.deleteCell(cell2);
-
-    BOOST_CHECK_EQUAL( board.getCells().size(), 2 );
-    BOOST_CHECK_EQUAL( board.getCells()[0], cell1 );
-    BOOST_CHECK_EQUAL( board.getCells()[1], cell3 );
-}
-
-BOOST_AUTO_TEST_CASE( addFeedUnitsSizeTest1 )
-{
-    Board board( Vector2u(100, 200));
-    int number = 13;
-    BOOST_CHECK_EQUAL( board.getFeedUnits().size(), 0 );
-    for ( int i = 0; i < number; ++i )
-    {
-        Unit *unit = new Unit();
-        board.addFeedUnit(unit);
-    }
-    BOOST_CHECK_EQUAL( board.getFeedUnits().size(), number );
-    
-}
-
-BOOST_AUTO_TEST_CASE( addFeedUnitsDataTest1 )
-{
-    Board board( Vector2u(150, 30));
-    
-    Unit *unit1 = new Unit();
-    board.addFeedUnit(unit1);
-
-    Unit *unit2 = new Unit();
-    board.addFeedUnit(unit2);
-
-    Unit *unit3 = new Unit();
-    board.addFeedUnit(unit3);
-
-    BOOST_CHECK_EQUAL( board.getFeedUnits().size(), 3 );
-    BOOST_CHECK_EQUAL( board.getFeedUnits()[0], unit1 );
-    BOOST_CHECK_EQUAL( board.getFeedUnits()[1], unit2 );
-    BOOST_CHECK_EQUAL( board.getFeedUnits()[2], unit3 ); 
-}
-
-BOOST_AUTO_TEST_CASE( deleteUnitsDataTest1 )
-{
-    Board board( Vector2u(150, 30));
-    
-    Unit *unit1 = new Unit();
-    board.addFeedUnit(unit1);
-
-    Unit *unit2 = new Unit();
-    board.addFeedUnit(unit2);
-
-    Unit *unit3 = new Unit();
-    board.addFeedUnit(unit3);
-
-    board.deleteFeedUnit(unit2);
-
-    BOOST_CHECK_EQUAL( board.getFeedUnits().size(), 2 );
-    BOOST_CHECK_EQUAL( board.getFeedUnits()[0], unit1 );
-    BOOST_CHECK_EQUAL( board.getFeedUnits()[1], unit3 );
-}
-
-BOOST_AUTO_TEST_SUITE_END()
-
-/**
- * testy klasy Player
+ * tests to class Player
  */
 
 BOOST_AUTO_TEST_SUITE( testPlayer )
@@ -380,7 +269,7 @@ BOOST_AUTO_TEST_CASE( removeCellSizeTest1 )
 BOOST_AUTO_TEST_SUITE_END()
 
 /**
- * testy klasy ManualPlayer
+ * tests to class ManualPlayer
  */
 
 BOOST_AUTO_TEST_SUITE( testPlayer )

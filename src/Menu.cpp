@@ -138,7 +138,6 @@ void Menu::chooseOption( RenderWindow &window )
         }
         case 2:
         {
-            Settings settings;
             settings.run();
             break;
         }
