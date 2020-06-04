@@ -19,9 +19,10 @@ class Game
         ManualPlayer *player;
         std::vector<Player>players;
         Bot *bot;
-        std::vector<Bot>bots;
-        std::vector<Cell>feedCells;
+        std::vector<Bot*>bots;
+        std::vector<Unit*>feedUnits;
         std::vector<Cell*> tmp;
+        std::vector<Cell*> cells;
         Board* board;
         sf::Clock clock;
     public:
@@ -31,10 +32,21 @@ class Game
         sf::Vector2f findPlace();
         double fRand( double fMin, double fMax );
         void step( sf::RenderWindow &window );
+        void update( sf::Time time );
         void save();
         bool load();
 
         void gameOver(sf::RenderWindow &window);
+
+        void addCell( Cell *cell );
+        void addBot( Bot *bot );
+
+        void deleteCell( Cell *cell );
+        void deleteBot( Bot* bot );
+        void deleteFeedUnit( Unit *unit );
+
+        friend std::ostream& operator<<(std::ostream& stream, const Game& game);
+        friend std::istream& operator>>(std::istream& stream, Game& game);
 };
 
 #endif 

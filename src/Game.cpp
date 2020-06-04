@@ -3,7 +3,7 @@
 using namespace sf;
 using namespace std;
 
-const int MAX_NUMBER_OF_PLAYERS = 70;
+const int MAX_NUMBER_OF_PLAYERS = 60;
 const int MAX_NUMBER_OF_FEED_UNITS = 1000;
 
 Game::Game()
@@ -21,13 +21,13 @@ Game::Game(RenderWindow &window)
     if ( !load() )
     {
         player = new ManualPlayer(size.x/2, size.y/2);
-        board->addCell(player->cells[0]);
+        cells.push_back(player->cells[0]);
     }
     else
     {
         //connect players cells with manual player
         player = NULL;
-        for( auto cell : board->getCells() )
+        for( auto cell : cells )
         {
             cell->setAcceleration(0);
             if( cell->isItPlayer() )
@@ -71,7 +71,7 @@ Game::Game(RenderWindow &window)
                         break;
                     case Keyboard::Space:
                         for(auto cell : player->divide(sf::Mouse::getPosition(window)))
-                            board->addCell(cell);
+                            cells.push_back(cell);
                         break;
                     default:
                         break;
@@ -87,7 +87,7 @@ Game::Game(RenderWindow &window)
 
         //check if game is over
         double maxRadius = 0;
-        for( auto cell: board->getCells() )
+        for( auto cell: cells )
         {
             maxRadius = max( maxRadius, cell->getRadius());
         }
@@ -104,18 +104,55 @@ Game::Game(RenderWindow &window)
 Game::~Game()
 {
     players.clear();
-    feedCells.clear();
-    bots.clear();
     for (auto p : tmp)
     {
         if( p != NULL )
-        delete p;
+        {
+            delete p;
+            p = NULL;
+        }
     } 
     tmp.clear();
+    for(auto fu : feedUnits)
+    {
+        if( fu != NULL)
+        {
+            delete fu;
+            fu = NULL;
+        }
+    }
+    feedUnits.clear();
+
+    for(auto b : bots)
+    {
+        if( b != NULL)
+        {
+            delete b;
+            b = NULL;
+        }
+    }
+    feedUnits.clear();
+
+    for(auto c : cells)
+    {
+        if( c != NULL)
+        {
+            delete c;
+            c = NULL;
+        }
+    }
+    feedUnits.clear();
+
     if( board != NULL )
+    {
         delete board;
+        board = NULL;
+    }
     if( player != NULL )
+    {
         delete player;
+        player = NULL;
+    }
 }
 
 //find place to insert any unit
@@ -127,14 +164,17 @@ Vector2f Game::findPlace()
 //next step of game
 void Game::step( RenderWindow &window )
 {
-    while( board->getFeedUnits().size() < MAX_NUMBER_OF_FEED_UNITS )
-        board->addFeedUnit(new Unit(findPlace(), 1));
+    while( feedUnits.size() < MAX_NUMBER_OF_FEED_UNITS )
+    {
+        Unit* u = new Unit(findPlace(), 1);
+        feedUnits.push_back(u);
+    }
 
-    while( board->getCells().size() < MAX_NUMBER_OF_PLAYERS )
+    while( bots.size() + 1 < MAX_NUMBER_OF_PLAYERS )
     {
         bot = new Bot(findPlace().x, findPlace().y);
-        board->addCell(bot->botCells[0]);
-        board->addBot(bot);
+        bots.push_back(bot);
+        cells.push_back(bot->botCells[0]);
     }
 
 
@@ -142,8 +182,97 @@ void Game::step( RenderWindow &window )
     player->setMousePosition(position);
     Time time = clock.getElapsedTime();
     clock.restart();
-    board->update(time, player);
-    board->draw(window);
+    update(time);
+    board->draw(window, cells, feedUnits);
+}
+
+void Game::update( Time time )
+{
+    std::vector<Cell*> cellsToDelete;
+
+    //check if cell can eat sth
+    for( vector<Cell*>::iterator cell = cells.begin(); cell != cells.end(); ++cell )
+    {
+
+        for( vector<Unit*>::iterator unit = feedUnits.begin(); unit != feedUnits.end(); ++unit )
+        {
+            if( (*cell)->distance(*(*unit)) <= (*cell)->getRadius() )
+            {
+                (*cell)->grow((*unit)->getMass());
+                delete (*unit);
+                *unit = NULL;
+                feedUnits.erase(unit); 
+                --unit;
+            }
+        }
+        
+        for( vector<Cell*>::iterator cell2 = cell + 1; cell2 != cells.end(); ++cell2 )
+        {
+            if( (*cell)->distance(*(*cell2)) <= (*cell)->getRadius() )
+            {
+                if((*cell)->getMass() > (*cell2)->getMass())
+                {
+                    if((*cell2)->isItPlayer())
+                    {
+                        player->removeCell((*cell2));
+                    }
+                    else
+                    {
+                        for(auto bot : bots)
+                        {
+                            if(bot->botCells[0] == (*cell2))
+                            {
+                                //board->deleteBot(bot);
+                                deleteBot(bot);
+                                delete bot;
+                                bot = NULL;
+                            } 
+                        }
+                    }
+                    
+                    (*cell)->grow((*cell2)->getMass() / 2); 
+                    cellsToDelete.push_back(*cell2);
+                    cells.erase(cell2);
+                    --cell2;
+                }
+            }
+            else if( (*cell2)->distance(*(*cell)) <= (*cell2)->getRadius() )
+            {
+                if((*cell)->getMass() < (*cell2)->getMass())
+                {
+                    if((*cell)->isItPlayer())
+                    {
+                        player->removeCell((*cell));
+                    }
+                    else
+                    {
+                        for(auto bot : bots)
+                        {
+                            if(bot->botCells[0] == (*cell))
+                            {
+                                deleteBot(bot);
+                                delete bot;
+                                bot = NULL;
+                            } 
+                        }
+                    }
+
+                    (*cell2)->grow((*cell)->getMass() / 2); 
+                    cellsToDelete.push_back(*cell);
+                }
+            }
+        }
+    }
+
+    for( auto cell : cellsToDelete )
+    {
+        deleteCell(cell);
+    }    
+            
+    for( auto bot : bots)
+    {
+        bot->setNextPosition(feedUnits, cells);
+    }
 }
 
 //rand a number form the range fMin, fMax
@@ -158,7 +287,7 @@ void Game::save()
 {
     ofstream myfile;
     myfile.open ("bin/save");
-    myfile << *board;
+    myfile << *this;
     myfile.close();
 }
 
@@ -169,7 +298,7 @@ bool Game::load()
     myfile.open("bin/save");
     if( !myfile )
         return false;
-    myfile >> *board;
+    myfile >> *this;
     myfile.close();
     return true;
 }
@@ -177,4 +306,104 @@ bool Game::load()
 void Game::gameOver(RenderWindow &window)
 {
     window.clear(sf::Color::Black);
+}
+
+void Game::addCell( Cell *cell )
+{
+    cells.push_back( cell );
+}
+void Game::addBot( Bot *bot )
+{
+    bots.push_back( bot );
+}        
+
+void Game::deleteCell(Cell *cell)
+{
+    for( vector<Cell*>::iterator it = cells.begin(); it != cells.end(); ++it )
+    {
+        if( *it == cell )
+        {
+            cells.erase(it);
+            if( cell != NULL )
+                delete cell;
+            cell = NULL;
+            break;
+        }
+    }
+}
+
+void Game::deleteFeedUnit(Unit *unit)
+{
+    for( vector<Unit*>::iterator it = feedUnits.begin(); it != feedUnits.end(); ++it )
+    {
+        if(*it == unit)
+        {
+            feedUnits.erase(it);
+            break;
+        }
+    }
+}
+void Game::deleteBot(Bot* bot)
+{
+    for( vector<Bot*>::iterator it = bots.begin(); it != bots.end(); ++it )
+    {
+        if(*it == bot)
+        {
+            bots.erase(it);
+            break;
+        }
+    }
+}
+
+std::ostream& operator<<(std::ostream& stream, const Game& game)
+{
+    stream << game.cells.size() << "\n";
+    for( unsigned int i = 0; i < game.cells.size(); ++i )
+    {
+        stream << game.cells[i]->isItPlayer() << "\n";
+        stream << *game.cells[i] << "\n";
+    }
+    stream << game.feedUnits.size() << "\n";
+    for( unsigned int i = 0; i < game.feedUnits.size(); ++i )
+    {
+        stream << *game.feedUnits[i] << "\n";
+    }
+    return stream;
+    
+}
+
+std::istream& operator>>(std::istream& stream, Game& game)
+{
+    unsigned int cellsSize;
+    stream >> cellsSize;
+    for( unsigned int i = 0; i < cellsSize; ++i )
+    {
+        bool isPlayer;
+        stream >> isPlayer;
+        Cell* cell = new Cell();
+        stream >> *cell;
+        if( isPlayer )
+        {
+            cell->setAsPlayer();
+            game.addCell(cell);
+        }
+        else
+        {
+            Bot* bot = new Bot(cell->getPosition().x, cell->getPosition().y);
+            bot->botCells[0]->setMass(cell->getMass());
+            game.addCell(bot->botCells[0]);
+            game.addBot(bot);
+        }
+    }
+
+    unsigned int feedUnitsSize;
+    stream >> feedUnitsSize;
+    for( unsigned int i = 0; i < feedUnitsSize; ++i )
+    {
+        game.feedUnits.push_back(new Unit());
+        stream >> *game.feedUnits[i];
+    }
+
+    return stream;
+    
 }
