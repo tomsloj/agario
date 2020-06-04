@@ -8,11 +8,65 @@ const int MAX_NUMBER_OF_FEED_UNITS = 1000;
 
 Game::Game()
 {
+    srand( time( NULL ) );
 }
 
-Game::Game(RenderWindow &window)
+Game::~Game()
 {
-    srand( time( NULL ) );
+    players.clear();
+    for (auto p : tmp)
+    {
+        if( p != NULL )
+        {
+            delete p;
+            p = NULL;
+        }
+    } 
+    tmp.clear();
+    for(auto fu : feedUnits)
+    {
+        if( fu != NULL)
+        {
+            delete fu;
+            fu = NULL;
+        }
+    }
+    feedUnits.clear();
+
+    for(auto b : bots)
+    {
+        if( b != NULL)
+        {
+            delete b;
+            b = NULL;
+        }
+    }
+    feedUnits.clear();
+
+    for(auto c : cells)
+    {
+        if( c != NULL)
+        {
+            delete c;
+            c = NULL;
+        }
+    }
+    feedUnits.clear();
+
+    if( board != NULL )
+    {
+        delete board;
+        board = NULL;
+    }
+    if( player != NULL )
+    {
+        delete player;
+        player = NULL;
+    }
+}
+
+void Game::run( RenderWindow &window )
+{
     window.setFramerateLimit(FPSNumber);
     Vector2u size = window.getSize();
     board = new Board(size);
@@ -97,62 +151,7 @@ Game::Game(RenderWindow &window)
             gameOver(window);
             break;
         } 
-    }
-    
-}
-
-Game::~Game()
-{
-    players.clear();
-    for (auto p : tmp)
-    {
-        if( p != NULL )
-        {
-            delete p;
-            p = NULL;
-        }
-    } 
-    tmp.clear();
-    for(auto fu : feedUnits)
-    {
-        if( fu != NULL)
-        {
-            delete fu;
-            fu = NULL;
-        }
-    }
-    feedUnits.clear();
-
-    for(auto b : bots)
-    {
-        if( b != NULL)
-        {
-            delete b;
-            b = NULL;
-        }
-    }
-    feedUnits.clear();
-
-    for(auto c : cells)
-    {
-        if( c != NULL)
-        {
-            delete c;
-            c = NULL;
-        }
-    }
-    feedUnits.clear();
-
-    if( board != NULL )
-    {
-        delete board;
-        board = NULL;
-    }
-    if( player != NULL )
-    {
-        delete player;
-        player = NULL;
-    }
+    }  
 }
 
 //find place to insert any unit

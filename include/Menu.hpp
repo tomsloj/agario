@@ -14,7 +14,8 @@ class Menu
         const sf::Color checked = sf::Color::Red;
         const sf::Color unchecked = sf::Color::White;
 
-         Settings settings;
+        Settings settings;
+        Game game; 
     public:
         Menu();
         //Menu( int &window);

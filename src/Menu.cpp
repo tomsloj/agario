@@ -127,13 +127,12 @@ void Menu::chooseOption( RenderWindow &window )
         case 0:
         {
             remove("bin/save");
-            Game game(window);
-            
+            game.run(window);
             break;
         }
         case 1:
         {
-            Game game(window);
+            game.run(window);
             break;
         }
         case 2:
