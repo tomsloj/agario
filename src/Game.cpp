@@ -173,7 +173,7 @@ void Game::step( RenderWindow &window )
     {
         bot = new Bot(findPlace().x, findPlace().y);
         bots.push_back(bot);
-        cells.push_back(bot->botCells[0]);
+        cells.push_back(bot->getBotCells()[0]);
     }
 
 
@@ -219,7 +219,7 @@ void Game::update( Time time )
                     {
                         for(auto bot : bots)
                         {
-                            if(bot->botCells[0] == (*cell2))
+                            if(bot->getBotCells()[0] == (*cell2))
                             {
                                 //board->deleteBot(bot);
                                 deleteBot(bot);
@@ -247,7 +247,7 @@ void Game::update( Time time )
                     {
                         for(auto bot : bots)
                         {
-                            if(bot->botCells[0] == (*cell))
+                            if(bot->getBotCells()[0] == (*cell))
                             {
                                 deleteBot(bot);
                                 delete bot;
@@ -389,8 +389,8 @@ std::istream& operator>>(std::istream& stream, Game& game)
         else
         {
             Bot* bot = new Bot(cell->getPosition().x, cell->getPosition().y);
-            bot->botCells[0]->setMass(cell->getMass());
-            game.addCell(bot->botCells[0]);
+            bot->getBotCells()[0]->setMass(cell->getMass());
+            game.addCell(bot->getBotCells()[0]);
             game.addBot(bot);
         }
     }

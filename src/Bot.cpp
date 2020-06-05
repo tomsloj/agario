@@ -27,13 +27,18 @@ Bot::~Bot()
     botCells.clear();
 }
 
+std::vector<Cell*> Bot::getBotCells()
+{
+    return botCells;
+}
+
 void Bot::setNextPosition(std::vector<Unit*> feedUnits, std::vector<Cell*> cells)
 {
     double length = 10000;
     double x = 0;
     double y = 0;
 
-    double prioryty; // priority = 1 / dostance to smaller - 1 / distance to bigger
+    double prioryty; 
     double tmpBiggestSamller;
     double tmpNearestBiggerSize;
     double nearestBigger;

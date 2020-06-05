@@ -320,3 +320,82 @@ BOOST_AUTO_TEST_CASE( divideTest1 )
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+/**
+ * tests to class Bot
+ */
+
+BOOST_AUTO_TEST_SUITE( testBot )
+
+BOOST_AUTO_TEST_CASE( botBehaviourTest1 )
+{
+    std::vector<Cell*> vec;
+    std::vector<Unit*> uvec;
+
+    vec.push_back(new Cell(0, 0, 0, false, 2));
+    vec.push_back(new Cell(10, 10, 0, false, 30));
+    vec.push_back(new Cell(20, 20, 0, false, 20));
+
+    Bot bot = Bot(vec[1]);
+
+    bot.setNextPosition(uvec, vec);
+
+    double dist1 = (vec[0]->getPosition().x - vec[1]->getPosition().x)*(vec[0]->getPosition().x - vec[1]->getPosition().x) +
+                    (vec[0]->getPosition().y - vec[1]->getPosition().y)*(vec[0]->getPosition().y - vec[1]->getPosition().y);
+
+    double dist2 = (vec[2]->getPosition().x - vec[1]->getPosition().x)*(vec[2]->getPosition().x - vec[1]->getPosition().x) +
+                    (vec[2]->getPosition().y - vec[1]->getPosition().y)*(vec[2]->getPosition().y - vec[1]->getPosition().y);                
+
+    // check if bot goes toward smaller bigger cell
+    BOOST_CHECK_LT( dist2, dist1 );
+}
+
+BOOST_AUTO_TEST_CASE( botBehaviourTest2 )
+{
+    std::vector<Cell*> vec;
+    std::vector<Unit*> uvec;
+
+    vec.push_back(new Cell(0, 0, 0, false, 2));
+    vec.push_back(new Cell(10, 10, 0, false, 30));
+    vec.push_back(new Cell(20, 20, 0, false, 20));
+
+    uvec.push_back(new Unit(5, 5, 1));
+
+    Bot bot = Bot(vec[1]);
+
+    bot.setNextPosition(uvec, vec);
+
+    double dist1 = (vec[0]->getPosition().x - vec[1]->getPosition().x)*(vec[0]->getPosition().x - vec[1]->getPosition().x) +
+                    (vec[0]->getPosition().y - vec[1]->getPosition().y)*(vec[0]->getPosition().y - vec[1]->getPosition().y);
+
+    double dist2 = (vec[2]->getPosition().x - vec[1]->getPosition().x)*(vec[2]->getPosition().x - vec[1]->getPosition().x) +
+                    (vec[2]->getPosition().y - vec[1]->getPosition().y)*(vec[2]->getPosition().y - vec[1]->getPosition().y);                
+
+    // check if bot goes toward smaller bigger cell and ignore food cells
+    BOOST_CHECK_LT( dist2, dist1 );
+}
+
+BOOST_AUTO_TEST_CASE( botBehaviourTest3 )
+{
+    std::vector<Cell*> vec;
+    std::vector<Unit*> uvec;
+
+    vec.push_back(new Cell(17, 17, 0, false, 5));
+    vec.push_back(new Cell(10, 10, 0, false, 30));
+    vec.push_back(new Cell(20, 20, 0, false, 50));
+
+    Bot bot = Bot(vec[1]);
+
+    bot.setNextPosition(uvec, vec);
+
+    double dist1 = (0 - vec[1]->getPosition().x)*(0 - vec[1]->getPosition().x) +
+                    (0 - vec[1]->getPosition().y)*(0 - vec[1]->getPosition().y);
+
+    double dist2 = (vec[2]->getPosition().x - vec[1]->getPosition().x)*(vec[2]->getPosition().x - vec[1]->getPosition().x) +
+                    (vec[2]->getPosition().y - vec[1]->getPosition().y)*(vec[2]->getPosition().y - vec[1]->getPosition().y);                
+
+    // check if bot run from bigger cell and don't go to chase smaller one
+    BOOST_CHECK_LT( dist1, dist2 );
+}
+
+BOOST_AUTO_TEST_SUITE_END()

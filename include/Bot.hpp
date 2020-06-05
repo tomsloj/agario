@@ -6,10 +6,11 @@
 class Bot : public Player
 {
     private:
+        std::vector<Cell*>botCells;
 
     public:
 
-        std::vector<Cell*>botCells;
+        
 
         Bot();
         Bot(double x, double y);
@@ -17,6 +18,7 @@ class Bot : public Player
         ~Bot();
 
         void setColor( sf::Color color);
+        std::vector<Cell*> getBotCells();
 
         void setNextPosition(std::vector<Unit*> feedUnits, std::vector<Cell*> cells);
 };
