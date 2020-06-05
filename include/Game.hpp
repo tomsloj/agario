@@ -29,7 +29,6 @@ class Game
         Game();
         Game( sf::RenderWindow &window );
         ~Game();
-        void run( sf::RenderWindow &window );
         sf::Vector2f findPlace();
         double fRand( double fMin, double fMax );
         void step( sf::RenderWindow &window );
